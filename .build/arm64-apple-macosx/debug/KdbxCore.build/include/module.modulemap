@@ -1,3 +1,0 @@
-module KdbxCore {
-    header "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/KdbxCore.build/include/KdbxCore-Swift.h"
-}

@@ -1,4 +1,0 @@
-module CArgon2 {
-    umbrella "/Users/stevic/Projects/fleen/Sources/CArgon2/include"
-    export *
-}
