@@ -33,11 +33,9 @@ struct EntryDetailView: View {
         .onDisappear { revealed.removeAll() }
     }
 
-    /// Every field the entry carries beyond the standard five, in name order.
-    ///
-    /// Nothing is filtered out: the TOTP storage keys appear alongside the live code
-    /// they generate, and a field left empty is still listed. Hiding a field the user
-    /// put there means they cannot find it and have no way to know why.
+    /// Every field the user put on the entry, in name order — including ones left
+    /// empty. The TOTP keys are the exception: the live code is shown above, and the
+    /// URI and seed that produce it are ingredients rather than content.
     private var displayableCustomFields: [(name: String, value: FieldValue)] {
         entry.allCustomFields
             .map { (name: $0.key, value: $0.value) }

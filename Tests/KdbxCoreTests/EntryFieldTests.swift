@@ -86,11 +86,12 @@ struct EntryFieldTests {
                 "TOTP Seed and TOTP Settings are plumbing, not user content")
     }
 
-    /// What the detail view lists. Unlike `meaningfulCustomFields`, this hides nothing:
-    /// a field the user put in the database must be findable, including the TOTP
-    /// storage keys and fields left empty.
-    @Test("Every non-standard field is listed, including TOTP keys and empty ones")
-    func allCustomFieldsHidesNothing() {
+    /// What the detail view lists: everything the user put there, empty values included.
+    /// The TOTP keys are excluded because the live code is displayed instead — the URI
+    /// and seed are its ingredients, and printing them beside it is a second place to
+    /// read the secret from.
+    @Test("Empty fields are listed; TOTP plumbing is not")
+    func allCustomFieldsKeepsUserContent() {
         let entry = Entry(fields: [
             Entry.titleField: .plain("Thing"),
             Entry.userNameField: .plain("someone"),
@@ -101,9 +102,10 @@ struct EntryFieldTests {
             "Real": .plain("value"),
         ])
 
-        #expect(Set(entry.allCustomFields.keys) == ["otp", "TOTP Seed", "Empty note", "Real"])
+        #expect(Set(entry.allCustomFields.keys) == ["Empty note", "Real"],
+                "the empty field is kept; otp and TOTP Seed are not")
         #expect(Set(entry.meaningfulCustomFields.keys) == ["Real"],
-                "the filtered view still filters, for the CLI")
+                "the CLI's view drops empty values too")
     }
 
     /// The standard five stay out: they are shown in their own right above, so listing
@@ -120,12 +122,17 @@ struct EntryFieldTests {
         #expect(entry.allCustomFields.isEmpty)
     }
 
-    @Test("The real fixture lists everything it carries")
-    func allFieldsOnRealFixture() throws {
+    /// A TOTP entry shows a code and nothing else: no URI row, no seed row.
+    @Test("A TOTP entry lists no fields, in either storage form")
+    func totpEntriesListNoFields() throws {
         let database = try Fixture.open("pkp-aes-argon2d.kdbx")
 
+        let modern = try #require(database.allEntries.first { $0.title == "TOTP Entry" })
+        #expect(modern.allCustomFields.isEmpty, "the otpauth:// URI must not be listed")
+        #expect(modern.totp != nil, "but the code itself is still available")
+
         let legacy = try #require(database.allEntries.first { $0.title == "TOTP Legacy" })
-        #expect(Set(legacy.allCustomFields.keys) == ["TOTP Seed", "TOTP Settings"],
-                "the seed is listed now, next to the live code it generates")
+        #expect(legacy.allCustomFields.isEmpty, "nor the seed and settings pair")
+        #expect(legacy.totp != nil)
     }
 }

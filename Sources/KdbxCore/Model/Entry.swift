@@ -182,18 +182,24 @@ public struct Entry: Sendable, Identifiable {
     /// should not also list the raw seed beside it.
     public static let totpFieldKeys: Set<String> = ["otp", "TOTP", "TOTP Seed", "TOTP Settings"]
 
-    /// Custom fields worth showing: neither TOTP plumbing nor empty.
-    /// Every field that is not one of the five standard ones — including empty values
-    /// and the keys that store TOTP configuration.
+    /// Every field the user themselves put on the entry, including ones left empty.
     ///
-    /// The standard five are still excluded because they are displayed in their own
-    /// right; listing them again would be duplication, not disclosure. Everything else
-    /// the entry carries is here, so nothing the user put in the database is hidden
-    /// from them.
+    /// Two kinds are excluded, and neither is a case of hiding user content:
+    ///
+    /// * the standard five, which are displayed in their own right above — listing them
+    ///   again would be duplication, not disclosure;
+    /// * the TOTP keys, because the live one-time code is displayed instead. The raw
+    ///   `otpauth://` URI and seed are the code's ingredients, not information: printing
+    ///   them beside the code they generate is noise, and a second place to read the
+    ///   secret from.
     public var allCustomFields: [String: FieldValue] {
-        fields.filter { name, _ in !Self.standardFields.contains(name) }
+        fields.filter { name, _ in
+            !Self.standardFields.contains(name) && !Self.totpFieldKeys.contains(name)
+        }
     }
 
+    /// As `allCustomFields`, but also dropping empty values. Used by `fleen-cli`, where
+    /// a labelled row with nothing in it is just noise in a terminal.
     public var meaningfulCustomFields: [String: FieldValue] {
         fields.filter { name, value in
             !Self.standardFields.contains(name)
