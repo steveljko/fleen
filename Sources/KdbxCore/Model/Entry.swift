@@ -183,6 +183,17 @@ public struct Entry: Sendable, Identifiable {
     public static let totpFieldKeys: Set<String> = ["otp", "TOTP", "TOTP Seed", "TOTP Settings"]
 
     /// Custom fields worth showing: neither TOTP plumbing nor empty.
+    /// Every field that is not one of the five standard ones — including empty values
+    /// and the keys that store TOTP configuration.
+    ///
+    /// The standard five are still excluded because they are displayed in their own
+    /// right; listing them again would be duplication, not disclosure. Everything else
+    /// the entry carries is here, so nothing the user put in the database is hidden
+    /// from them.
+    public var allCustomFields: [String: FieldValue] {
+        fields.filter { name, _ in !Self.standardFields.contains(name) }
+    }
+
     public var meaningfulCustomFields: [String: FieldValue] {
         fields.filter { name, value in
             !Self.standardFields.contains(name)

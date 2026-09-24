@@ -85,4 +85,47 @@ struct EntryFieldTests {
         #expect(legacy.meaningfulCustomFields.isEmpty,
                 "TOTP Seed and TOTP Settings are plumbing, not user content")
     }
+
+    /// What the detail view lists. Unlike `meaningfulCustomFields`, this hides nothing:
+    /// a field the user put in the database must be findable, including the TOTP
+    /// storage keys and fields left empty.
+    @Test("Every non-standard field is listed, including TOTP keys and empty ones")
+    func allCustomFieldsHidesNothing() {
+        let entry = Entry(fields: [
+            Entry.titleField: .plain("Thing"),
+            Entry.userNameField: .plain("someone"),
+            Entry.passwordField: .makeProtected("hunter2"),
+            "otp": .makeProtected("otpauth://totp/x?secret=JBSWY3DPEHPK3PXP"),
+            "TOTP Seed": .makeProtected("JBSWY3DPEHPK3PXP"),
+            "Empty note": .plain(""),
+            "Real": .plain("value"),
+        ])
+
+        #expect(Set(entry.allCustomFields.keys) == ["otp", "TOTP Seed", "Empty note", "Real"])
+        #expect(Set(entry.meaningfulCustomFields.keys) == ["Real"],
+                "the filtered view still filters, for the CLI")
+    }
+
+    /// The standard five stay out: they are shown in their own right above, so listing
+    /// them again would be duplication rather than disclosure.
+    @Test("The standard fields are not repeated among the custom ones")
+    func standardFieldsExcluded() {
+        let entry = Entry(fields: [
+            Entry.titleField: .plain("Thing"),
+            Entry.userNameField: .plain("someone"),
+            Entry.passwordField: .makeProtected("hunter2"),
+            Entry.urlField: .plain("https://example.com"),
+            Entry.notesField: .plain("note"),
+        ])
+        #expect(entry.allCustomFields.isEmpty)
+    }
+
+    @Test("The real fixture lists everything it carries")
+    func allFieldsOnRealFixture() throws {
+        let database = try Fixture.open("pkp-aes-argon2d.kdbx")
+
+        let legacy = try #require(database.allEntries.first { $0.title == "TOTP Legacy" })
+        #expect(Set(legacy.allCustomFields.keys) == ["TOTP Seed", "TOTP Settings"],
+                "the seed is listed now, next to the live code it generates")
+    }
 }

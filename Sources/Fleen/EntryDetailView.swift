@@ -33,14 +33,13 @@ struct EntryDetailView: View {
         .onDisappear { revealed.removeAll() }
     }
 
-    /// Custom fields worth showing.
+    /// Every field the entry carries beyond the standard five, in name order.
     ///
-    /// Excludes the keys that exist only to *store* TOTP configuration — they are
-    /// already presented as a live code above, and showing the raw seed next to it is
-    /// both redundant and a second place for the secret to be read from. Empty values
-    /// are dropped too: a labelled row with nothing in it is just noise.
+    /// Nothing is filtered out: the TOTP storage keys appear alongside the live code
+    /// they generate, and a field left empty is still listed. Hiding a field the user
+    /// put there means they cannot find it and have no way to know why.
     private var displayableCustomFields: [(name: String, value: FieldValue)] {
-        entry.meaningfulCustomFields
+        entry.allCustomFields
             .map { (name: $0.key, value: $0.value) }
             .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
     }
@@ -145,9 +144,6 @@ struct EntryDetailView: View {
 
     private var customFields: some View {
         VStack(alignment: .leading, spacing: Design.Metrics.tightSpacing) {
-            Text("Custom fields")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(Design.Palette.secondaryText)
             ForEach(displayableCustomFields, id: \.name) { field in
                 if let card = CardNumber.detect(label: field.name, value: field.value) {
                     // A card number is treated as secret whether or not the database
@@ -288,7 +284,15 @@ struct FieldRow: View {
     private var shown: String {
         if let revealedOverride { return revealedOverride }
         guard isRevealed else { return maskedOverride ?? String(repeating: "•", count: 10) }
-        return value.reveal()
+        let value = value.reveal()
+        // An empty field is still worth listing — the user put it there — but a row with
+        // nothing after the label reads as a rendering fault rather than as "empty".
+        return value.isEmpty ? "—" : value
+    }
+
+    /// Whether what is on screen is the empty-value placeholder rather than content.
+    private var isPlaceholder: Bool {
+        revealedOverride == nil && isRevealed && value.isEmpty
     }
 
     var body: some View {
@@ -299,6 +303,9 @@ struct FieldRow: View {
                     .foregroundStyle(Design.Palette.secondaryText)
                 Text(shown)
                     .font(.callout.monospaced())
+                    .foregroundStyle(isPlaceholder
+                                     ? Design.Palette.secondaryText
+                                     : Design.Palette.primaryText)
                     .lineLimit(1)
                     .truncationMode(.middle)
                     // Selection is only enabled while revealed — a concealed field
@@ -321,10 +328,14 @@ struct FieldRow: View {
                 .help(isRevealed ? "Hide" : "Reveal")
                 .accessibilityLabel(isRevealed ? "Hide \(label)" : "Reveal \(label)")
             }
-            Button(action: onCopy) { Image(systemName: "doc.on.doc") }
-                .buttonStyle(.borderless)
-                .help("Copy \(label)")
-                .accessibilityLabel("Copy \(label)")
+            // No copy button on an empty field: it would report "copied" having put
+            // nothing on the clipboard.
+            if !value.isEmpty {
+                Button(action: onCopy) { Image(systemName: "doc.on.doc") }
+                    .buttonStyle(.borderless)
+                    .help("Copy \(label)")
+                    .accessibilityLabel("Copy \(label)")
+            }
         }
         .padding(.vertical, Design.Metrics.rowVerticalPadding - 3)
         // Never speak a concealed value; announce its presence instead.

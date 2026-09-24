@@ -216,6 +216,11 @@ Options: `--keyfile <path>`, `--no-password`, `--reveal`.
 - Entries with a one-time code show the live TOTP in their details, with a countdown
   ring that turns red in the last five seconds. **⌘T** copies the current code from
   anywhere in the list.
+- **Every field an entry carries is listed**, under no heading — including fields left
+  empty (shown as `—`) and the keys that store TOTP configuration, which sit alongside
+  the live code they generate. Nothing the user put in the database is hidden from them.
+  The five standard fields are the only exception, because they are already shown above
+  in their own right.
 - **Card numbers hide as `**** **** **** 1234`** rather than a generic run of dots, and
   read back in the issuer's grouping when revealed (Amex keeps its own 4-6-5). A field
   is treated as a card number when its label says so — `Card Number`, `card_number`,
