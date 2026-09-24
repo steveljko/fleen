@@ -47,6 +47,8 @@ public final class Preferences: @unchecked Sendable {
             // Off by default: a fingerprint prompt appearing from a single click, with
             // no window to explain itself, should be something the user opted into.
             Key.promptBiometricsOnOpen: false,
+            // Off by default: it changes what a click does, which should be opt-in.
+            Key.quickCopy: false,
             Key.showInDock: false,
             Key.watchDatabaseFile: true,
             // Off by default: deleted entries cluttering search results is the
@@ -63,6 +65,7 @@ public final class Preferences: @unchecked Sendable {
         static let lockOnSleep = "lockOnSleep"
         static let biometricUnlockEnabled = "biometricUnlockEnabled"
         static let promptBiometricsOnOpen = "promptBiometricsOnOpen"
+        static let quickCopy = "quickCopy"
         static let showInDock = "showInDock"
         static let watchDatabaseFile = "watchDatabaseFile"
         static let showRecycleBin = "showRecycleBin"
@@ -107,6 +110,19 @@ public final class Preferences: @unchecked Sendable {
         get { defaults.bool(forKey: Key.promptBiometricsOnOpen) }
         set { defaults.set(newValue, forKey: Key.promptBiometricsOnOpen) }
     }
+
+    /// Clicking an entry copies its password instead of opening it; clicking the same
+    /// entry again within `quickCopyWindow` copies its one-time code.
+    public var quickCopy: Bool {
+        get { defaults.bool(forKey: Key.quickCopy) }
+        set { defaults.set(newValue, forKey: Key.quickCopy) }
+    }
+
+    /// How long the second click keeps its different meaning.
+    ///
+    /// Long enough to paste a password and land in the code field, short enough that a
+    /// click a minute later is unambiguously a fresh start rather than a second step.
+    public static let quickCopyWindow: TimeInterval = 15
 
     public var showInDock: Bool {
         get { defaults.bool(forKey: Key.showInDock) }

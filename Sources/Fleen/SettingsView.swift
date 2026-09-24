@@ -53,6 +53,7 @@ struct SettingsView: View {
     @State private var watchFile: Bool
     @State private var biometricEnabled: Bool
     @State private var promptOnOpen: Bool
+    @State private var quickCopy: Bool
     @State private var showRecycleBin: Bool
     @State private var browseMode: BrowseMode
 
@@ -65,6 +66,7 @@ struct SettingsView: View {
         _watchFile = State(initialValue: preferences.watchDatabaseFile)
         _biometricEnabled = State(initialValue: preferences.biometricUnlockEnabled)
         _promptOnOpen = State(initialValue: preferences.promptBiometricsOnOpen)
+        _quickCopy = State(initialValue: preferences.quickCopy)
         _showRecycleBin = State(initialValue: preferences.showRecycleBin)
         _browseMode = State(initialValue: preferences.browseMode)
     }
@@ -184,6 +186,16 @@ struct SettingsView: View {
                     .foregroundStyle(Design.Palette.secondaryText)
             } header: {
                 Text("Display")
+            }
+
+            Section {
+                Toggle("Click an entry to copy its password", isOn: $quickCopy)
+                    .onChange(of: quickCopy) { _, value in preferences.quickCopy = value }
+                Text("Clicking an entry copies the password instead of opening it. Click the same entry again within \(Int(Preferences.quickCopyWindow)) seconds and it copies the one-time code, if the entry has one. Press Return, or use the entry's right-click menu, to open it without copying.")
+                    .font(.caption)
+                    .foregroundStyle(Design.Palette.secondaryText)
+            } header: {
+                Text("Quick copy")
             }
 
             Section {

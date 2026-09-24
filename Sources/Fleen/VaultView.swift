@@ -20,6 +20,8 @@ struct VaultView: View {
     @State private var focusSearch = false
     @State private var detailEntry: Entry?
     @State private var copyFeedback: String?
+    /// Which entry is mid-cycle for quick copy, and until when.
+    @State private var quickCopyCycle = QuickCopyCycle()
     @State private var expandedGroups: Set<UUID> = []
     @State private var expansionSeededFor: UUID?
     /// Drill-down mode only: the folder currently being shown. nil means the root.
@@ -68,6 +70,9 @@ struct VaultView: View {
         .onAppear {
             focusSearch = true
             seedExpansionIfNeeded()
+            // A cycle belongs to one unlocked session, not to whatever was half-done
+            // before the vault locked.
+            quickCopyCycle.reset()
         }
         .onChange(of: session.database?.rootGroup.id) { _, _ in
             seedExpansionIfNeeded()
@@ -489,7 +494,7 @@ struct VaultView: View {
             ScrollView {
                 LazyVStack(spacing: 1) {
                     ForEach(rows) { node in
-                        Button { activate(node) } label: {
+                        Button { activate(node, via: .click) } label: {
                             rowView(node)
                                 .selectableRow(isSelected: selection == node.id,
                                                resetToken: navigationToken)
@@ -710,14 +715,18 @@ struct VaultView: View {
         return selection ?? (isSearching ? visibleRows.first?.id : nil)
     }
 
-    /// Return, or a click: folders open and close, entries show their details.
+    /// How the row was activated. Quick copy changes what a *click* does; Return keeps
+    /// opening the entry, so there is always a way in that does not touch the clipboard.
+    enum Activation { case click, keyboard }
+
+    /// Return: folders open and close, entries show their details.
     private func activateSelection() {
         guard let id = actionableID,
               let node = visibleRows.first(where: { $0.id == id }) else { return }
-        activate(node)
+        activate(node, via: .keyboard)
     }
 
-    private func activate(_ node: VaultTree.Node) {
+    private func activate(_ node: VaultTree.Node, via activation: Activation = .keyboard) {
         selection = node.id
         switch node.kind {
         case .group(let group):
@@ -729,7 +738,27 @@ struct VaultView: View {
                 currentGroupID = group.id
             }
         case .entry(let record):
-            openDetail(record.id)
+            guard preferences.quickCopy, activation == .click else {
+                openDetail(record.id)
+                return
+            }
+            quickCopy(record.id)
+        }
+    }
+
+    /// One click copies the password; a second click on the same entry, within the
+    /// window, copies its one-time code.
+    private func quickCopy(_ id: UUID) {
+        selection = id
+        let hasCode = session.entry(withID: id)?.totp != nil
+        switch quickCopyCycle.next(for: id, hasOneTimeCode: hasCode) {
+        case .password:
+            copyPassword()
+            // Say what the next click will do, rather than leaving the user to discover
+            // that the same click now means something else.
+            if hasCode { copyFeedback = "Password copied · click again for the code" }
+        case .oneTimeCode:
+            copyTOTP()
         }
     }
 
