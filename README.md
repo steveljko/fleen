@@ -216,6 +216,14 @@ Options: `--keyfile <path>`, `--no-password`, `--reveal`.
 - Entries with a one-time code show the live TOTP in their details, with a countdown
   ring that turns red in the last five seconds. **⌘T** copies the current code from
   anywhere in the list.
+- **Card numbers hide as `**** **** **** 1234`** rather than a generic run of dots, and
+  read back in the issuer's grouping when revealed (Amex keeps its own 4-6-5). A field
+  is treated as a card number when its label says so — `Card Number`, `card_number`,
+  `Card No`, `PAN`, `CC Number` — and the value is a plausible 12–19 digit number. A
+  vaguer label like `Number` additionally has to pass the Luhn check or match a known
+  brand prefix, because masking an account number as a card would hide a field you need
+  to read. Copying gives bare digits, since payment forms reject the spaces. There is no
+  card layout or card type: a card is an ordinary entry, shown the ordinary way.
 - **Settings › Security › Ask on click, before the window opens** makes the menu bar
   icon prompt for Touch ID the instant it is clicked, with no window behind it: touch
   the sensor and the vault opens already unlocked. Cancel and it opens the lock screen

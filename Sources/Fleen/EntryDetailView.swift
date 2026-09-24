@@ -149,13 +149,29 @@ struct EntryDetailView: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(Design.Palette.secondaryText)
             ForEach(displayableCustomFields, id: \.name) { field in
-                FieldRow(label: field.name, value: field.value,
-                         isRevealed: !field.value.isProtected || revealed.contains(field.name),
-                         onCopy: {
-                             copy(field.value.reveal(), label: field.name,
-                                  secret: field.value.isProtected)
-                         },
-                         onToggleReveal: field.value.isProtected ? { toggle(field.name) } : nil)
+                if let card = CardNumber.detect(label: field.name, value: field.value) {
+                    // A card number is treated as secret whether or not the database
+                    // marked it protected, and hides as **** **** **** 1234 rather than
+                    // an undifferentiated run of dots.
+                    FieldRow(label: field.name, value: field.value,
+                             isRevealed: revealed.contains(field.name),
+                             revealedOverride: revealed.contains(field.name)
+                                 ? card.grouped : nil,
+                             maskedOverride: card.masked,
+                             onCopy: {
+                                 // Bare digits: a payment form rejects the spaces.
+                                 copy(card.digits, label: field.name, secret: true)
+                             },
+                             onToggleReveal: { toggle(field.name) })
+                } else {
+                    FieldRow(label: field.name, value: field.value,
+                             isRevealed: !field.value.isProtected || revealed.contains(field.name),
+                             onCopy: {
+                                 copy(field.value.reveal(), label: field.name,
+                                      secret: field.value.isProtected)
+                             },
+                             onToggleReveal: field.value.isProtected ? { toggle(field.name) } : nil)
+                }
             }
         }
     }
@@ -262,13 +278,16 @@ struct FieldRow: View {
     let value: FieldValue
     let isRevealed: Bool
     var revealedOverride: String?
+    /// What to show while hidden, for values with a meaningful masked form of their own
+    /// — a card number reads as `**** **** **** 1234` rather than a fixed run of dots.
+    var maskedOverride: String?
     let onCopy: () -> Void
     let onToggleReveal: (() -> Void)?
     var onOpen: (() -> Void)?
 
     private var shown: String {
         if let revealedOverride { return revealedOverride }
-        guard isRevealed else { return String(repeating: "•", count: 10) }
+        guard isRevealed else { return maskedOverride ?? String(repeating: "•", count: 10) }
         return value.reveal()
     }
 
