@@ -12,9 +12,34 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 IDENTITY="${FLEEN_IDENTITY:-Apple Development: vekstevic@icloud.com (SJF6JX9J6F)}"
-APP_PROFILE="${FLEEN_PROFILE:-$HOME/Downloads/Fleen_macOS.provisionprofile}"
+# Looked for in a stable location first, then the browser's download folder. Keeping it
+# only in ~/Downloads meant a tidy-up silently broke the signed build — and, because the
+# script exits non-zero while `build/Fleen.app` still holds the previous build, the next
+# careless `ditto` installs a stale app that looks fine.
+PROFILE_CANDIDATES=(
+    "${FLEEN_PROFILE:-}"
+    "$HOME/Library/Developer/Fleen/Fleen_macOS.provisionprofile"
+    "$HOME/Downloads/Fleen_macOS.provisionprofile"
+)
+APP_PROFILE=""
+for candidate in "${PROFILE_CANDIDATES[@]}"; do
+    [[ -n "$candidate" && -f "$candidate" ]] || continue
+    APP_PROFILE="$candidate"
+    break
+done
 
-[[ -f "$APP_PROFILE" ]] || { echo "missing provisioning profile: $APP_PROFILE" >&2; exit 2; }
+if [[ -z "$APP_PROFILE" ]]; then
+    echo "ERROR: no provisioning profile found. Looked in:" >&2
+    for candidate in "${PROFILE_CANDIDATES[@]}"; do
+        [[ -n "$candidate" ]] && echo "         $candidate" >&2
+    done
+    echo "       A copy is embedded in any previously signed build; recover it with:" >&2
+    echo "         mkdir -p ~/Library/Developer/Fleen && \\" >&2
+    echo "           cat /Applications/Fleen.app/Contents/embedded.provisionprofile \\" >&2
+    echo "           > ~/Library/Developer/Fleen/Fleen_macOS.provisionprofile" >&2
+    exit 2
+fi
+echo "==> Profile: $APP_PROFILE"
 
 Scripts/build-app.sh --release \
     --sign "$IDENTITY" \
