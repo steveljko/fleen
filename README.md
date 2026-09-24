@@ -106,11 +106,27 @@ menu bar (or the notch on a MacBook Pro) can push a new status item off-screen
 entirely. Either free up menu bar space, or give Fleen a Dock icon instead:
 
 ```bash
-defaults write com.fleen.Fleen showInDock -bool true
-pkill -f Fleen.app && open build/Fleen.app
+# Note the path: a sandboxed build reads its preferences from its container, so the
+# usual `defaults write com.fleen.Fleen …` writes to a file the app never reads.
+PREFS=~/Library/Containers/com.fleen.Fleen/Data/Library/Preferences/com.fleen.Fleen.plist
+defaults write "$PREFS" showInDock -bool true
+pkill -f Fleen.app && open /Applications/Fleen.app
 ```
 
-To go back to menu-bar-only: `defaults write com.fleen.Fleen showInDock -bool false`.
+To go back to menu-bar-only — which is the default, and where you want to end up once
+you have found the icon:
+
+```bash
+defaults delete "$PREFS" showInDock
+pkill -f Fleen.app && open /Applications/Fleen.app
+```
+
+Check which mode is in force without guessing from the Dock:
+
+```bash
+lsappinfo info -only ApplicationType $(lsappinfo find bundleid=com.fleen.Fleen | head -1)
+# "UIElement" = menu bar only, "Foreground" = Dock icon
+```
 
 For a signed, sandboxed build you need both an identity **and** a provisioning
 profile:
