@@ -169,9 +169,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         let hosting = NSHostingController(
             rootView: RootView(session: session, preferences: preferences,
                                presentation: presentation))
-        // Let the popover follow the SwiftUI content's own height, so a database with
-        // three folders gets a compact popover instead of a mostly-empty one.
-        hosting.sizingOptions = [.preferredContentSize]
+        // Deliberately *not* `sizingOptions = [.preferredContentSize]`. That let the
+        // popover follow the SwiftUI content's own height, which meant it resized on
+        // every navigation — a compact popover for a small folder, a tall one for a
+        // long list, jumping between the two as the user moved around. The size is
+        // fixed by `popover.contentSize` above and held for every state.
         popover.contentViewController = hosting
         self.popover = popover
 

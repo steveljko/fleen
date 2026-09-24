@@ -209,6 +209,10 @@ Options: `--keyfile <path>`, `--no-password`, `--reveal`.
 > ⌘C do nothing in a text field, and `.keyboardShortcut` on a SwiftUI `Menu` inside a
 > transient popover fires only while that view is in the responder chain, which it
 > often is not. Commands that must always work live in `MainMenu.swift`.
+- **The popover is one fixed size in every state.** It used to shrink to fit its
+  contents, which meant the window changed height as you entered a folder, searched, or
+  opened an entry — the controls moving out from under the pointer on each step. A short
+  list now leaves empty space rather than resizing the window.
 - Copy confirmations and the clipboard countdown appear as a brief toast over the
   list rather than a permanent status bar.
 - The popover closes as soon as the app loses focus, so an unlocked vault is never

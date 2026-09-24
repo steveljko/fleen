@@ -10,11 +10,11 @@ enum Design {
 
     enum Metrics {
         static let popoverWidth: CGFloat = 380
-        /// The lock screen's height, and the ceiling for the vault.
+        /// The popover's height, in every state. Deliberately one constant rather than
+        /// a range: sizing to content meant the window changed height on each
+        /// navigation — entering a folder, searching, opening an entry — which is
+        /// distracting and moves the controls out from under the pointer.
         static let popoverHeight: CGFloat = 460
-        /// The vault shrinks to fit its contents but never below this — a popover that
-        /// collapses to two rows looks broken rather than tidy.
-        static let popoverMinHeight: CGFloat = 300
         /// Estimated height of one folder or entry row, used to size the list to its
         /// contents. Rows are icon + two lines of text plus padding.
         static let estimatedRowHeight: CGFloat = 40

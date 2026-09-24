@@ -50,7 +50,7 @@ struct VaultView: View {
                     database: session.database,
                     preferences: preferences,
                     onCopied: showCopyFeedback)
-                    .frame(height: Design.Metrics.popoverHeight - chromeHeight)
+                    .frame(maxHeight: .infinity)
             } else if isSearching {
                 searchResults
             } else {
@@ -60,9 +60,10 @@ struct VaultView: View {
                 }
             }
         }
-        .frame(width: Design.Metrics.popoverWidth)
-        .frame(minHeight: Design.Metrics.popoverMinHeight,
-               maxHeight: Design.Metrics.popoverHeight)
+        // One fixed size in every state. The popover used to shrink to its contents,
+        // which meant it changed height as you opened a folder, searched, or opened an
+        // entry — the window resizing under the pointer on every navigation.
+        .frame(width: Design.Metrics.popoverWidth, height: Design.Metrics.popoverHeight)
         .overlay(alignment: .bottom) { toast }
         .onAppear {
             focusSearch = true
@@ -286,6 +287,8 @@ struct VaultView: View {
         return currentGroupID != nil
     }
 
+    /// Everything above the list. Now only an estimate for Page Up/Down, since the
+    /// list itself takes whatever space is left by layout rather than by subtraction.
     private var chromeHeight: CGFloat {
         Design.Metrics.controlHeight
             + Design.Metrics.barVerticalPadding * 2
@@ -436,7 +439,7 @@ struct VaultView: View {
                 symbol: "tray",
                 title: "This database is empty",
                 message: "Folders and entries you add in KeePassXC will appear here.")
-                .frame(height: listHeight(rowCount: 0))
+                .frame(maxHeight: .infinity)
         } else {
             rowList(treeNodes)
         }
@@ -449,7 +452,7 @@ struct VaultView: View {
                 symbol: "tray",
                 title: "This database is empty",
                 message: "Folders and entries you add in KeePassXC will appear here.")
-                .frame(height: listHeight(rowCount: 0))
+                .frame(maxHeight: .infinity)
         } else if folderNodes.isEmpty {
             let isNested = currentGroupID != nil
             let backTitle: String? = isNested ? "Go back" : nil
@@ -460,7 +463,7 @@ struct VaultView: View {
                 message: "Nothing is stored here. Search to look across the whole database.",
                 actionTitle: backTitle,
                 action: backAction)
-                .frame(height: listHeight(rowCount: 0))
+                .frame(maxHeight: .infinity)
         } else {
             rowList(folderNodes)
         }
@@ -475,20 +478,10 @@ struct VaultView: View {
                 message: "Nothing matches “\(query)”. Try part of a title, username, address or tag.",
                 actionTitle: "Clear search",
                 action: { query = "" })
-                .frame(height: listHeight(rowCount: 0))
+                .frame(maxHeight: .infinity)
         } else {
             rowList(visibleRows)
         }
-    }
-
-    /// `ScrollView` has no intrinsic height, so the height is computed from the row
-    /// count rather than measured — clamped so a small database gets a compact popover
-    /// and a large one still scrolls.
-    private func listHeight(rowCount: Int) -> CGFloat {
-        let natural = CGFloat(rowCount) * Design.Metrics.estimatedRowHeight + 8
-        let floor = Design.Metrics.popoverMinHeight - chromeHeight
-        let ceiling = Design.Metrics.popoverHeight - chromeHeight
-        return min(ceiling, max(floor, natural))
     }
 
     private func rowList(_ rows: [VaultTree.Node]) -> some View {
@@ -510,7 +503,7 @@ struct VaultView: View {
                 .padding(.horizontal, Design.Metrics.tightSpacing)
                 .padding(.vertical, 4)
             }
-            .frame(height: listHeight(rowCount: rows.count))
+            .frame(maxHeight: .infinity)
             .onChange(of: selection) { _, new in
                 guard let new else { return }
                 withAnimation(Design.animation()) { proxy.scrollTo(new, anchor: .center) }
