@@ -245,14 +245,26 @@ Options: `--keyfile <path>`, `--no-password`, `--reveal`.
   instead, and the `otpauth://` URI and seed that produce it are its ingredients, not
   information. Listing them beside the code would also be a second place to read the
   secret from.
-- **Settings › General › Quick copy** makes clicking an entry copy its password instead
-  of opening it. Click the same entry again within 15 seconds and it copies the one-time
-  code, which is the order a login form asks for them. The toast says so (*"Password
-  copied · click again for the code"*) rather than leaving you to discover that the same
-  click now means something different. A third click starts over, an entry with no code
-  just copies the password again, and clicking a different entry starts that entry's own
-  cycle. Return and the right-click menu still open an entry without touching the
-  clipboard. Off by default, because it changes what a click does.
+- **Settings › General › Quick copy** makes clicking an entry copy what you need from it
+  instead of opening it, with each further click within 15 seconds copying the next
+  thing. The sequence depends on what the entry is:
+
+  | Entry | Click 1 | Click 2 | Click 3 |
+  |---|---|---|---|
+  | Login | Password | One-time code | — |
+  | Card | Card number | Expiry | Security code |
+
+  A card is one carrying a field called `Type` (or `Category`, or `Kind`) set to `card`
+  — `Credit Card`, `debit card` and `payment card` all count. An entry with a card number
+  and no password is treated as a card without the marker, because the login sequence
+  would otherwise try to copy a password that is not there and the click would appear to
+  do nothing.
+
+  Steps an entry lacks are skipped rather than producing a dead click, the toast names
+  what the next click will copy (*"Card number copied · click again for the expiry"*),
+  and past the last step the sequence starts over rather than leaving the clipboard stuck
+  on a security code. Return and the right-click menu still open an entry without
+  touching the clipboard. Off by default, because it changes what a click does.
 - **Card numbers hide as `**** **** **** 1234`** rather than a generic run of dots, and
   read back in the issuer's grouping when revealed (Amex keeps its own 4-6-5). A field
   is treated as a card number when its label says so — `Card Number`, `card_number`,

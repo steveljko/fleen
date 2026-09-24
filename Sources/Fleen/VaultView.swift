@@ -746,19 +746,45 @@ struct VaultView: View {
         }
     }
 
-    /// One click copies the password; a second click on the same entry, within the
-    /// window, copies its one-time code.
+    /// Repeated clicks on one entry walk its copy sequence: password then one-time code
+    /// for a login, number then expiry then security code for a card.
     private func quickCopy(_ id: UUID) {
         selection = id
-        let hasCode = session.entry(withID: id)?.totp != nil
-        switch quickCopyCycle.next(for: id, hasOneTimeCode: hasCode) {
+        guard let entry = session.entry(withID: id) else { return }
+
+        let steps = QuickCopyStep.sequence(for: entry)
+        guard let step = quickCopyCycle.next(for: id, steps: steps) else {
+            // Nothing copyable at all. Saying so beats a click that silently does
+            // nothing and reads as a bug.
+            showCopyFeedback("Nothing to copy on this entry")
+            return
+        }
+
+        guard let value = value(of: step, in: entry) else { return }
+        ClipboardService.shared.copySecret(value, clearAfter: preferences.clipboardClearSeconds)
+
+        // Say what the next click will do, rather than leaving the user to discover that
+        // the same click now means something else.
+        if let upcoming = quickCopyCycle.upcomingStep(for: id, steps: steps) {
+            copyFeedback = "\(step.label) copied · click again for \(upcoming.nextHint)"
+        } else {
+            showCopyFeedback("\(step.label) copied")
+        }
+    }
+
+    private func value(of step: QuickCopyStep, in entry: Entry) -> String? {
+        switch step {
         case .password:
-            copyPassword()
-            // Say what the next click will do, rather than leaving the user to discover
-            // that the same click now means something else.
-            if hasCode { copyFeedback = "Password copied · click again for the code" }
+            return entry.password?.reveal()
         case .oneTimeCode:
-            copyTOTP()
+            return entry.totp?.code()
+        case .cardNumber:
+            // Bare digits: a payment form rejects the spaces.
+            return entry.cardNumberField?.card.digits
+        case .cardExpiry:
+            return entry.cardExpiryField?.value.reveal()
+        case .cardSecurityCode:
+            return entry.cardSecurityCodeField?.value.reveal()
         }
     }
 
