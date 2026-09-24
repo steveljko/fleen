@@ -47,8 +47,9 @@ public final class Preferences: @unchecked Sendable {
             // Off by default: a fingerprint prompt appearing from a single click, with
             // no window to explain itself, should be something the user opted into.
             Key.promptBiometricsOnOpen: false,
-            // Off by default: it changes what a click does, which should be opt-in.
-            Key.quickCopy: false,
+            // On by default: it lives on ⌘-click, so it takes nothing away from a
+            // plain click and there is no mode to be surprised by.
+            Key.quickCopy: true,
             Key.showInDock: false,
             Key.watchDatabaseFile: true,
             // Off by default: deleted entries cluttering search results is the
@@ -111,8 +112,9 @@ public final class Preferences: @unchecked Sendable {
         set { defaults.set(newValue, forKey: Key.promptBiometricsOnOpen) }
     }
 
-    /// Clicking an entry copies its password instead of opening it; clicking the same
-    /// entry again within `quickCopyWindow` copies its one-time code.
+    /// Whether ⌘-clicking an entry walks its copy sequence — password then one-time
+    /// code for a login, number then expiry then security code for a card — instead of
+    /// opening it. A plain click always opens the entry, whatever this is set to.
     public var quickCopy: Bool {
         get { defaults.bool(forKey: Key.quickCopy) }
         set { defaults.set(newValue, forKey: Key.quickCopy) }

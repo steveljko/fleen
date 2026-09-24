@@ -189,9 +189,9 @@ struct SettingsView: View {
             }
 
             Section {
-                Toggle("Click an entry to copy its password", isOn: $quickCopy)
+                Toggle("⌘-click an entry to copy from it", isOn: $quickCopy)
                     .onChange(of: quickCopy) { _, value in preferences.quickCopy = value }
-                Text("Clicking an entry copies the first thing you need from it instead of opening it; clicking again within \(Int(Preferences.quickCopyWindow)) seconds copies the next. A login gives its password, then its one-time code. A card gives its number, then the expiry, then the security code — mark it with a field called Type set to card. Steps an entry does not have are skipped. Press Return, or use the right-click menu, to open an entry without copying.")
+                Text("Holding ⌘ and clicking an entry copies the first thing you need from it; ⌘-clicking again within \(Int(Preferences.quickCopyWindow)) seconds copies the next. A login gives its password, then its one-time code. A card gives its number, then the expiry, then the security code — mark it with a field called Type set to card. Steps an entry does not have are skipped. A plain click still opens the entry.")
                     .font(.caption)
                     .foregroundStyle(Design.Palette.secondaryText)
             } header: {

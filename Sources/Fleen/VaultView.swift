@@ -494,7 +494,12 @@ struct VaultView: View {
             ScrollView {
                 LazyVStack(spacing: 1) {
                     ForEach(rows) { node in
-                        Button { activate(node, via: .click) } label: {
+                        Button {
+                            // SwiftUI does not hand a Button its modifiers, so the flags
+                            // are read from the event being handled right now.
+                            let command = NSEvent.modifierFlags.contains(.command)
+                            activate(node, via: command ? .commandClick : .click)
+                        } label: {
                             rowView(node)
                                 .selectableRow(isSelected: selection == node.id,
                                                resetToken: navigationToken)
@@ -715,9 +720,12 @@ struct VaultView: View {
         return selection ?? (isSearching ? visibleRows.first?.id : nil)
     }
 
-    /// How the row was activated. Quick copy changes what a *click* does; Return keeps
-    /// opening the entry, so there is always a way in that does not touch the clipboard.
-    enum Activation { case click, keyboard }
+    /// How the row was activated.
+    ///
+    /// Quick copy is on ⌘-click rather than on a plain click, so it takes nothing away:
+    /// a click still opens the entry, and the copy sequence is there when wanted without
+    /// a mode to be in. Return opens the entry too.
+    enum Activation { case click, commandClick, keyboard }
 
     /// Return: folders open and close, entries show their details.
     private func activateSelection() {
@@ -738,7 +746,7 @@ struct VaultView: View {
                 currentGroupID = group.id
             }
         case .entry(let record):
-            guard preferences.quickCopy, activation == .click else {
+            guard preferences.quickCopy, activation == .commandClick else {
                 openDetail(record.id)
                 return
             }
@@ -766,7 +774,7 @@ struct VaultView: View {
         // Say what the next click will do, rather than leaving the user to discover that
         // the same click now means something else.
         if let upcoming = quickCopyCycle.upcomingStep(for: id, steps: steps) {
-            copyFeedback = "\(step.label) copied · click again for \(upcoming.nextHint)"
+            copyFeedback = "\(step.label) copied · ⌘-click again for \(upcoming.nextHint)"
         } else {
             showCopyFeedback("\(step.label) copied")
         }
