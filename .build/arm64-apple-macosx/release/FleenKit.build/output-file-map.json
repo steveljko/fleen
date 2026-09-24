@@ -1,0 +1,73 @@
+{
+  "": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/FleenKit.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/FleenKit.o",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/primary.swiftdeps"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/AutoLockController.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/AutoLockController.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/AutoLockController~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/AutoLockController.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/AutoLockController.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/BiometricUnlock.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/BiometricUnlock.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/BiometricUnlock~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/BiometricUnlock.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/BiometricUnlock.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/ClipboardService.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/ClipboardService.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/ClipboardService~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/ClipboardService.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/ClipboardService.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/DatabaseFileWatcher.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/DatabaseFileWatcher.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/DatabaseFileWatcher~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/DatabaseFileWatcher.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/DatabaseFileWatcher.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/Diagnostics.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Diagnostics.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Diagnostics~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Diagnostics.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Diagnostics.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/Keychain.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Keychain.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Keychain~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Keychain.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Keychain.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/PopoverPresentation.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/PopoverPresentation.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/PopoverPresentation~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/PopoverPresentation.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/PopoverPresentation.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/Preferences.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Preferences.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Preferences~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Preferences.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Preferences.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/SearchIndex.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/SearchIndex.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/SearchIndex~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/SearchIndex.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/SearchIndex.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultSession.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultSession.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultSession~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultSession.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultSession.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultTree.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultTree.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultTree~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultTree.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultTree.dia"
+  }
+}

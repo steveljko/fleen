@@ -1,0 +1,67 @@
+{
+  "": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/KdbxCoreTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/KdbxCoreTests.o",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/primary.swiftdeps"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/BiometricKeyTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/BiometricKeyTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/BiometricKeyTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/BiometricKeyTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/BiometricKeyTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/CryptoPrimitiveTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/CryptoPrimitiveTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/CryptoPrimitiveTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/CryptoPrimitiveTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/CryptoPrimitiveTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/DatabaseReadTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DatabaseReadTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DatabaseReadTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DatabaseReadTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DatabaseReadTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/EntryFieldTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/EntryFieldTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/EntryFieldTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/EntryFieldTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/EntryFieldTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/GroupNavigationTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/GroupNavigationTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/GroupNavigationTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/GroupNavigationTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/GroupNavigationTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/MemoryHygieneTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/MemoryHygieneTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/MemoryHygieneTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/MemoryHygieneTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/MemoryHygieneTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/PerformanceTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/PerformanceTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/PerformanceTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/PerformanceTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/PerformanceTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/ReaderInteropTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/ReaderInteropTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/ReaderInteropTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/ReaderInteropTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/ReaderInteropTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/TOTPTests.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/TOTPTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/TOTPTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/TOTPTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/TOTPTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DerivedSources/resource_bundle_accessor.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/resource_bundle_accessor.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/resource_bundle_accessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/resource_bundle_accessor.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/resource_bundle_accessor.dia"
+  }
+}

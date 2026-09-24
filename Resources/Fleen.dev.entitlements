@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Local development only.
+
+         The sandbox is off here because an ad-hoc signature gives the app an unstable
+         identity, which breaks Keychain access and security-scoped bookmarks between
+         builds. Signed builds use Fleen.entitlements, which turns the sandbox on.
+
+         Still no network entitlement, because there is still no network code. -->
+</dict>
+</plist>

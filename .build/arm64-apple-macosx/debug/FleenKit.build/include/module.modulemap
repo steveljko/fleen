@@ -1,0 +1,3 @@
+module FleenKit {
+    header "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKit.build/include/FleenKit-Swift.h"
+}

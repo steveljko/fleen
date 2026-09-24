@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/FleenPackageTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/FleenPackageTests.o",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/primary.swiftdeps"
+  },
+  "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.derived/runner.swift": {
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/runner.dia"
+  }
+}

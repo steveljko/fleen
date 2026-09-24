@@ -1,0 +1,10 @@
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/BiometricKeyTests.swift
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/CryptoPrimitiveTests.swift
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/DatabaseReadTests.swift
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/EntryFieldTests.swift
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/GroupNavigationTests.swift
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/MemoryHygieneTests.swift
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/PerformanceTests.swift
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/ReaderInteropTests.swift
+/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/TOTPTests.swift
+/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/KdbxCoreTests.build/DerivedSources/resource_bundle_accessor.swift

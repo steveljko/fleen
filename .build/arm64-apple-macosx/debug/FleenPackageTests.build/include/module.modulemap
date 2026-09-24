@@ -1,0 +1,3 @@
+module FleenPackageTests {
+    header "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenPackageTests.build/include/FleenPackageTests-Swift.h"
+}

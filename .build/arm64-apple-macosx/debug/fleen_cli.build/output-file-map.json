@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/fleen_cli.build/primary.swiftdeps"
+  },
+  "/Users/stevic/Projects/fleen/Sources/fleen-cli/main.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/fleen_cli.build/main.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/fleen_cli.build/main.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/fleen_cli.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/fleen_cli.build/main.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/fleen_cli.build/main.dia"
+  }
+}

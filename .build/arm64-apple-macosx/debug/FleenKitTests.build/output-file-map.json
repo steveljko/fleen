@@ -1,0 +1,103 @@
+{
+  "": {
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/primary.swiftdeps"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricDeclineTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricDeclineTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricDeclineTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricDeclineTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricDeclineTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricDeclineTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricEnforcementTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricEnforcementTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricEnforcementTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricEnforcementTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricEnforcementTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricEnforcementTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricErrorMappingTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricErrorMappingTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricErrorMappingTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricErrorMappingTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricErrorMappingTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/BiometricErrorMappingTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/ClipboardTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/ClipboardTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/ClipboardTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/ClipboardTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/ClipboardTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/ClipboardTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/FileImmutabilityTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/FileImmutabilityTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/FileImmutabilityTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/FileImmutabilityTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/FileImmutabilityTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/FileImmutabilityTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/KeychainTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/KeychainTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/KeychainTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/KeychainTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/KeychainTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/KeychainTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PopoverPresentationTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PopoverPresentationTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PopoverPresentationTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PopoverPresentationTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PopoverPresentationTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PopoverPresentationTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PromptBeforeOpeningTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PromptBeforeOpeningTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PromptBeforeOpeningTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PromptBeforeOpeningTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PromptBeforeOpeningTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/PromptBeforeOpeningTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/RecycleBinTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/RecycleBinTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/RecycleBinTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/RecycleBinTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/RecycleBinTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/RecycleBinTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SearchIndexTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SearchIndexTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SearchIndexTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SearchIndexTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SearchIndexTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SearchIndexTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SupportingTypeTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SupportingTypeTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SupportingTypeTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SupportingTypeTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SupportingTypeTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/SupportingTypeTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/TransientMessageTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/TransientMessageTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/TransientMessageTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/TransientMessageTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/TransientMessageTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/TransientMessageTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/Tests/FleenKitTests/VaultTreeShapeTests.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/VaultTreeShapeTests.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/VaultTreeShapeTests.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/VaultTreeShapeTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/VaultTreeShapeTests.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/VaultTreeShapeTests.dia"
+  },
+  "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/DerivedSources/resource_bundle_accessor.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/resource_bundle_accessor.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/resource_bundle_accessor.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/resource_bundle_accessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/resource_bundle_accessor.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/FleenKitTests.build/resource_bundle_accessor.dia"
+  }
+}

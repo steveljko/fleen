@@ -1,0 +1,2922 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.xctest/Contents/MacOS/FleenPackageTests",
+      "packagePath" : "/Users/stevic/Projects/fleen",
+      "productName" : "FleenPackageTests"
+    }
+  ],
+  "copyCommands" : {
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen_FleenKitTests.bundle/Fixtures" : {
+      "inputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/Fixtures"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen_FleenKitTests.bundle/Fixtures"
+        }
+      ]
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen_KdbxCoreTests.bundle/Fixtures" : {
+      "inputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/Fixtures"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen_KdbxCoreTests.bundle/Fixtures"
+        }
+      ]
+    }
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.Fleen-arm64-apple-macosx-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/sources",
+      "importPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/ActionsMenu.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/AppDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/DesignSystem.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/EntryDetailView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/MainMenu.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/SearchField.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/TOTPView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/UnlockView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/VaultView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenKit.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCore.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "Fleen",
+      "moduleOutputPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/Fleen.swiftmodule",
+      "objects" : [
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/ActionsMenu.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/AppDelegate.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/DesignSystem.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/EntryDetailView.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/MainMenu.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/SearchField.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/SettingsView.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/TOTPView.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/UnlockView.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/VaultView.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "10",
+        "-serialize-diagnostics",
+        "-O",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+        "-module-cache-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "Fleen_main",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "fleen"
+      ],
+      "outputFileMapPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/ActionsMenu.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/AppDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/DesignSystem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/EntryDetailView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/MainMenu.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/SearchField.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/TOTPView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/UnlockView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/VaultView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/Fleen.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/stevic/Projects/fleen/Sources/Fleen/ActionsMenu.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/AppDelegate.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/DesignSystem.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/EntryDetailView.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/MainMenu.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/SearchField.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/SettingsView.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/TOTPView.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/UnlockView.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/VaultView.swift",
+        "/Users/stevic/Projects/fleen/Sources/Fleen/main.swift"
+      ],
+      "tempsPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build",
+      "wholeModuleOptimization" : true
+    },
+    "C.FleenKit-arm64-apple-macosx-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/sources",
+      "importPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/AutoLockController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/BiometricUnlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/ClipboardService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/DatabaseFileWatcher.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/Diagnostics.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/Keychain.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/PopoverPresentation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/Preferences.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/SearchIndex.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultSession.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultTree.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCore.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FleenKit",
+      "moduleOutputPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenKit.swiftmodule",
+      "objects" : [
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/AutoLockController.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/BiometricUnlock.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/ClipboardService.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/DatabaseFileWatcher.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Diagnostics.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Keychain.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/PopoverPresentation.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Preferences.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/SearchIndex.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultSession.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultTree.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "10",
+        "-serialize-diagnostics",
+        "-O",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+        "-module-cache-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/include/FleenKit-Swift.h",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "fleen"
+      ],
+      "outputFileMapPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/AutoLockController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/BiometricUnlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/ClipboardService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/DatabaseFileWatcher.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Diagnostics.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Keychain.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/PopoverPresentation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Preferences.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/SearchIndex.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultSession.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultTree.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenKit.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/AutoLockController.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/BiometricUnlock.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/ClipboardService.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/DatabaseFileWatcher.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/Diagnostics.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/Keychain.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/PopoverPresentation.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/Preferences.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/SearchIndex.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultSession.swift",
+        "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultTree.swift"
+      ],
+      "tempsPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build",
+      "wholeModuleOptimization" : true
+    },
+    "C.FleenKitTests-arm64-apple-macosx-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/sources",
+      "importPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricDeclineTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricEnforcementTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricErrorMappingTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/ClipboardTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/FileImmutabilityTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/KeychainTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PopoverPresentationTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PromptBeforeOpeningTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/RecycleBinTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SearchIndexTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SupportingTypeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/TransientMessageTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/VaultTreeShapeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/DerivedSources/resource_bundle_accessor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<FleenKitTests-arm64-apple-macosx-release.module-resources>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenKit.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FleenKitTests",
+      "moduleOutputPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenKitTests.swiftmodule",
+      "objects" : [
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricDeclineTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricEnforcementTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricErrorMappingTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/ClipboardTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/FileImmutabilityTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/KeychainTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/PopoverPresentationTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/PromptBeforeOpeningTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/RecycleBinTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/SearchIndexTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/SupportingTypeTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/TransientMessageTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/VaultTreeShapeTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/resource_bundle_accessor.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "10",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/index/store",
+        "-O",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+        "-module-cache-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "fleen"
+      ],
+      "outputFileMapPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricDeclineTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricEnforcementTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricErrorMappingTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/ClipboardTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/FileImmutabilityTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/KeychainTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/PopoverPresentationTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/PromptBeforeOpeningTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/RecycleBinTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/SearchIndexTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/SupportingTypeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/TransientMessageTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/VaultTreeShapeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/resource_bundle_accessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenKitTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricDeclineTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricEnforcementTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricErrorMappingTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/ClipboardTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/FileImmutabilityTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/KeychainTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PopoverPresentationTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PromptBeforeOpeningTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/RecycleBinTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SearchIndexTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SupportingTypeTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/TransientMessageTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/FleenKitTests/VaultTreeShapeTests.swift",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/DerivedSources/resource_bundle_accessor.swift"
+      ],
+      "tempsPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build",
+      "wholeModuleOptimization" : true
+    },
+    "C.FleenPackageTests-arm64-apple-macosx-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/sources",
+      "importPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCoreTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenKitTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FleenPackageTests",
+      "moduleOutputPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "10",
+        "-serialize-diagnostics",
+        "-O",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+        "-module-cache-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/include/FleenPackageTests-Swift.h",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "fleen"
+      ],
+      "outputFileMapPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/FleenPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build",
+      "wholeModuleOptimization" : true
+    },
+    "C.KdbxCore-arm64-apple-macosx-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/sources",
+      "importPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/AesCbc.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/AesKdf.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Argon2.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/ChaCha20.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Hashers.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Salsa20.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/SecureBytes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/ByteReader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/CompositeKey.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/Gzip.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/HmacBlockStream.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxFile.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxHeader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxInnerHeader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxXmlReader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KeySchedule.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/VariantDictionary.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/Database.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/Entry.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/TOTP.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/argon2.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/blake2/blake2b.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/core.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/encoding.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/ref.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/thread.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "KdbxCore",
+      "moduleOutputPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCore.swiftmodule",
+      "objects" : [
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesCbc.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesKdf.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Argon2.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ChaCha20.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Hashers.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Salsa20.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/SecureBytes.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ByteReader.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/CompositeKey.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Gzip.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/HmacBlockStream.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxError.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxFile.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxHeader.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxInnerHeader.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxXmlReader.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KeySchedule.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/VariantDictionary.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Database.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Entry.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/TOTP.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "10",
+        "-serialize-diagnostics",
+        "-O",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+        "-module-cache-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/include/KdbxCore-Swift.h",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "fleen"
+      ],
+      "outputFileMapPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesCbc.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesKdf.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Argon2.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ChaCha20.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Hashers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Salsa20.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/SecureBytes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ByteReader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/CompositeKey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Gzip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/HmacBlockStream.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxFile.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxHeader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxInnerHeader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxXmlReader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KeySchedule.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/VariantDictionary.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Database.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Entry.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/TOTP.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCore.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/AesCbc.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/AesKdf.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Argon2.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/ChaCha20.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Hashers.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Salsa20.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/SecureBytes.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/ByteReader.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/CompositeKey.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/Gzip.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/HmacBlockStream.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxError.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxFile.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxHeader.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxInnerHeader.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxXmlReader.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KeySchedule.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/VariantDictionary.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/Database.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/Entry.swift",
+        "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/TOTP.swift"
+      ],
+      "tempsPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build",
+      "wholeModuleOptimization" : true
+    },
+    "C.KdbxCoreTests-arm64-apple-macosx-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/sources",
+      "importPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/BiometricKeyTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/CryptoPrimitiveTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/DatabaseReadTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/EntryFieldTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/GroupNavigationTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/MemoryHygieneTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/PerformanceTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/ReaderInteropTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/TOTPTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DerivedSources/resource_bundle_accessor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<KdbxCoreTests-arm64-apple-macosx-release.module-resources>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCore.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "KdbxCoreTests",
+      "moduleOutputPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCoreTests.swiftmodule",
+      "objects" : [
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/BiometricKeyTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/CryptoPrimitiveTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DatabaseReadTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/EntryFieldTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/GroupNavigationTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/MemoryHygieneTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/PerformanceTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/ReaderInteropTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/TOTPTests.swift.o",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/resource_bundle_accessor.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "10",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/index/store",
+        "-O",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+        "-module-cache-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "fleen"
+      ],
+      "outputFileMapPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/BiometricKeyTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/CryptoPrimitiveTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DatabaseReadTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/EntryFieldTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/GroupNavigationTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/MemoryHygieneTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/PerformanceTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/ReaderInteropTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/TOTPTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/resource_bundle_accessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCoreTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/BiometricKeyTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/CryptoPrimitiveTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/DatabaseReadTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/EntryFieldTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/GroupNavigationTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/MemoryHygieneTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/PerformanceTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/ReaderInteropTests.swift",
+        "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/TOTPTests.swift",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DerivedSources/resource_bundle_accessor.swift"
+      ],
+      "tempsPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build",
+      "wholeModuleOptimization" : true
+    },
+    "C.fleen-cli-arm64-apple-macosx-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build/sources",
+      "importPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/fleen-cli/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/KdbxCore.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "fleen_cli",
+      "moduleOutputPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/fleen_cli.swiftmodule",
+      "objects" : [
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-whole-module-optimization",
+        "-num-threads",
+        "10",
+        "-serialize-diagnostics",
+        "-O",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+        "-module-cache-path",
+        "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "fleen_cli_main",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "fleen"
+      ],
+      "outputFileMapPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules/fleen_cli.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/stevic/Projects/fleen/Sources/fleen-cli/main.swift"
+      ],
+      "tempsPath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build",
+      "wholeModuleOptimization" : true
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "Fleen" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "Fleen",
+      "-package-name",
+      "fleen",
+      "-c",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/ActionsMenu.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/AppDelegate.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/DesignSystem.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/EntryDetailView.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/MainMenu.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/SearchField.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/SettingsView.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/TOTPView.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/UnlockView.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/VaultView.swift",
+      "/Users/stevic/Projects/fleen/Sources/Fleen/main.swift",
+      "-I",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-serialize-diagnostics",
+      "-O",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+      "-module-cache-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "Fleen_main",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "fleen",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FleenKit" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FleenKit",
+      "-package-name",
+      "fleen",
+      "-c",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/AutoLockController.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/BiometricUnlock.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/ClipboardService.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/DatabaseFileWatcher.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/Diagnostics.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/Keychain.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/PopoverPresentation.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/Preferences.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/SearchIndex.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultSession.swift",
+      "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultTree.swift",
+      "-I",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-serialize-diagnostics",
+      "-O",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+      "-module-cache-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/include/FleenKit-Swift.h",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "fleen",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FleenKitTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FleenKitTests",
+      "-package-name",
+      "fleen",
+      "-c",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricDeclineTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricEnforcementTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricErrorMappingTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/ClipboardTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/FileImmutabilityTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/KeychainTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PopoverPresentationTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PromptBeforeOpeningTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/RecycleBinTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SearchIndexTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SupportingTypeTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/TransientMessageTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/FleenKitTests/VaultTreeShapeTests.swift",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/DerivedSources/resource_bundle_accessor.swift",
+      "-I",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/index/store",
+      "-O",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+      "-module-cache-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "fleen",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FleenPackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FleenPackageTests",
+      "-package-name",
+      "fleen",
+      "-c",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-serialize-diagnostics",
+      "-O",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+      "-module-cache-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/include/FleenPackageTests-Swift.h",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "fleen",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "KdbxCore" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "KdbxCore",
+      "-package-name",
+      "fleen",
+      "-c",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/AesCbc.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/AesKdf.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Argon2.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/ChaCha20.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Hashers.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Salsa20.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/SecureBytes.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/ByteReader.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/CompositeKey.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/Gzip.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/HmacBlockStream.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxError.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxFile.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxHeader.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxInnerHeader.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxXmlReader.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KeySchedule.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/VariantDictionary.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/Database.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/Entry.swift",
+      "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/TOTP.swift",
+      "-I",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-serialize-diagnostics",
+      "-O",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+      "-module-cache-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/include/KdbxCore-Swift.h",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "fleen",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "KdbxCoreTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "KdbxCoreTests",
+      "-package-name",
+      "fleen",
+      "-c",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/BiometricKeyTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/CryptoPrimitiveTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/DatabaseReadTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/EntryFieldTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/GroupNavigationTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/MemoryHygieneTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/PerformanceTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/ReaderInteropTests.swift",
+      "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/TOTPTests.swift",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DerivedSources/resource_bundle_accessor.swift",
+      "-I",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/index/store",
+      "-O",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+      "-module-cache-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "fleen",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "fleen_cli" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "fleen_cli",
+      "-package-name",
+      "fleen",
+      "-c",
+      "/Users/stevic/Projects/fleen/Sources/fleen-cli/main.swift",
+      "-I",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-serialize-diagnostics",
+      "-O",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/stevic/Projects/fleen/Sources/CArgon2/include",
+      "-module-cache-path",
+      "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "fleen_cli_main",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "fleen",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "CArgon2" : [
+
+    ],
+    "Fleen" : [
+      "FleenKit",
+      "KdbxCore",
+      "CArgon2"
+    ],
+    "FleenKit" : [
+      "KdbxCore",
+      "CArgon2"
+    ],
+    "FleenKitTests" : [
+      "FleenKit",
+      "KdbxCore",
+      "CArgon2"
+    ],
+    "FleenPackageTests" : [
+      "FleenKitTests",
+      "FleenKit",
+      "KdbxCoreTests",
+      "KdbxCore",
+      "CArgon2"
+    ],
+    "KdbxCore" : [
+      "CArgon2"
+    ],
+    "KdbxCoreTests" : [
+      "KdbxCore",
+      "CArgon2"
+    ],
+    "fleen_cli" : [
+      "KdbxCore",
+      "CArgon2"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/ActionsMenu.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/AppDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/DesignSystem.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/EntryDetailView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/MainMenu.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/SearchField.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/TOTPView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/UnlockView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/VaultView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/Fleen/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/sources"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/argon2.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/blake2/blake2b.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/core.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/encoding.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/ref.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/thread.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/ActionsMenu.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/AppDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/DesignSystem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/EntryDetailView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/MainMenu.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/SearchField.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/TOTPView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/UnlockView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/VaultView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/AutoLockController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/BiometricUnlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/ClipboardService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/DatabaseFileWatcher.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Diagnostics.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Keychain.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/PopoverPresentation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Preferences.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/SearchIndex.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultSession.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultTree.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesCbc.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesKdf.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Argon2.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ByteReader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ChaCha20.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/CompositeKey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Database.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Entry.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Gzip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Hashers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/HmacBlockStream.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxFile.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxHeader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxInnerHeader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxXmlReader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KeySchedule.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Salsa20.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/SecureBytes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/TOTP.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/VariantDictionary.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/Fleen.product/Objects.LinkFileList"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/AutoLockController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/BiometricUnlock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/ClipboardService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/DatabaseFileWatcher.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/Diagnostics.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/Keychain.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/PopoverPresentation.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/Preferences.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/SearchIndex.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultSession.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/FleenKit/VaultTree.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/sources"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricDeclineTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricEnforcementTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/BiometricErrorMappingTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/ClipboardTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/FileImmutabilityTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/KeychainTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PopoverPresentationTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/PromptBeforeOpeningTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/RecycleBinTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SearchIndexTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/SupportingTypeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/TransientMessageTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/FleenKitTests/VaultTreeShapeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/DerivedSources/resource_bundle_accessor.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/sources"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/sources"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/argon2.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/blake2/blake2b.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/core.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/encoding.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/ref.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/thread.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/AutoLockController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/BiometricUnlock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/ClipboardService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/DatabaseFileWatcher.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Diagnostics.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Keychain.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/PopoverPresentation.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/Preferences.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/SearchIndex.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultSession.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKit.build/VaultTree.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricDeclineTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricEnforcementTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/BiometricErrorMappingTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/ClipboardTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/FileImmutabilityTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/KeychainTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/PopoverPresentationTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/PromptBeforeOpeningTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/RecycleBinTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/SearchIndexTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/SupportingTypeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/TransientMessageTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/VaultTreeShapeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenKitTests.build/resource_bundle_accessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesCbc.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesKdf.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Argon2.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ByteReader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ChaCha20.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/CompositeKey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Database.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Entry.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Gzip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Hashers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/HmacBlockStream.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxFile.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxHeader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxInnerHeader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxXmlReader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KeySchedule.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Salsa20.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/SecureBytes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/TOTP.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/VariantDictionary.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/BiometricKeyTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/CryptoPrimitiveTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DatabaseReadTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/EntryFieldTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/GroupNavigationTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/MemoryHygieneTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/PerformanceTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/ReaderInteropTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/TOTPTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/resource_bundle_accessor.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/FleenPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/AesCbc.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/AesKdf.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Argon2.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/ChaCha20.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Hashers.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/Salsa20.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Crypto/SecureBytes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/ByteReader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/CompositeKey.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/Gzip.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/HmacBlockStream.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxFile.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxHeader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxInnerHeader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KdbxXmlReader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/KeySchedule.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Format/VariantDictionary.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/Database.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/Entry.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/KdbxCore/Model/TOTP.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/sources"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/BiometricKeyTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/CryptoPrimitiveTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/DatabaseReadTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/EntryFieldTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/GroupNavigationTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/MemoryHygieneTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/PerformanceTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/ReaderInteropTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Tests/KdbxCoreTests/TOTPTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/DerivedSources/resource_bundle_accessor.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCoreTests.build/sources"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen-cli.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/argon2.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/blake2/blake2b.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/core.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/encoding.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/ref.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/CArgon2.build/thread.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesCbc.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/AesKdf.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Argon2.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ByteReader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/ChaCha20.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/CompositeKey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Database.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Entry.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Gzip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Hashers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/HmacBlockStream.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxFile.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxHeader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxInnerHeader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KdbxXmlReader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/KeySchedule.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/Salsa20.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/SecureBytes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/TOTP.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/KdbxCore.build/VariantDictionary.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen-cli.product/Objects.LinkFileList"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/stevic/Projects/fleen/Sources/fleen-cli/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/fleen_cli.build/sources"
+    },
+    "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

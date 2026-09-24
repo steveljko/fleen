@@ -1,0 +1,82 @@
+{
+  "": {
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/primary.swiftdeps"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/ActionsMenu.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/ActionsMenu.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/ActionsMenu.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/ActionsMenu~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/ActionsMenu.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/ActionsMenu.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/AppDelegate.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/AppDelegate.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/AppDelegate.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/AppDelegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/AppDelegate.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/AppDelegate.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/DesignSystem.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/DesignSystem.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/DesignSystem.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/DesignSystem~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/DesignSystem.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/DesignSystem.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/EntryDetailView.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/EntryDetailView.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/EntryDetailView.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/EntryDetailView~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/EntryDetailView.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/EntryDetailView.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/MainMenu.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/MainMenu.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/MainMenu.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/MainMenu~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/MainMenu.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/MainMenu.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/SearchField.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SearchField.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SearchField.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SearchField~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SearchField.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SearchField.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/SettingsView.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SettingsView.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SettingsView.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SettingsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SettingsView.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/SettingsView.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/TOTPView.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/TOTPView.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/TOTPView.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/TOTPView~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/TOTPView.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/TOTPView.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/UnlockView.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/UnlockView.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/UnlockView.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/UnlockView~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/UnlockView.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/UnlockView.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/VaultView.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/VaultView.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/VaultView.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/VaultView~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/VaultView.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/VaultView.dia"
+  },
+  "/Users/stevic/Projects/fleen/Sources/Fleen/main.swift": {
+    "dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/main.d",
+    "object": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/main.swift.o",
+    "swiftmodule": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/main.swiftdeps",
+    "diagnostics": "/Users/stevic/Projects/fleen/.build/arm64-apple-macosx/debug/Fleen.build/main.dia"
+  }
+}
