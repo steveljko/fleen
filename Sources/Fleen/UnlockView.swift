@@ -135,7 +135,7 @@ struct UnlockView: View {
             }
         }
         .padding(.horizontal, Design.Metrics.screenPadding)
-        .padding(.vertical, Design.Metrics.spacing + 8)
+        .padding(.vertical, Design.Metrics.spacing)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         // Prompt when the user opens the popover — never merely because the vault
         // locked. An idle or screen lock happens while they are away from the Mac, and
@@ -172,11 +172,11 @@ struct UnlockView: View {
 
     private var passwordState: some View {
         VStack(spacing: 0) {
-            Spacer(minLength: 12)
+            Spacer(minLength: 8)
 
-            VStack(spacing: 10) {
+            VStack(spacing: 8) {
                 Image(systemName: "lock.shield.fill")
-                    .font(.system(size: 44, weight: .light))
+                    .font(.system(size: 36, weight: .light))
                     .foregroundStyle(Design.Palette.accent)
                     .accessibilityHidden(true)
 
@@ -191,7 +191,7 @@ struct UnlockView: View {
             }
             .accessibilityElement(children: .combine)
 
-            Spacer(minLength: 20)
+            Spacer(minLength: 14)
 
             VStack(spacing: 12) {
                 passwordField
@@ -230,11 +230,11 @@ struct UnlockView: View {
                 keyFileRow
             }
 
-            Spacer(minLength: 12)
+            Spacer(minLength: 8)
             footer
         }
         .padding(.horizontal, Design.Metrics.screenPadding)
-        .padding(.vertical, Design.Metrics.spacing + 8)
+        .padding(.vertical, Design.Metrics.spacing)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear { focus = .password }
     }

@@ -14,7 +14,12 @@ enum Design {
         /// a range: sizing to content meant the window changed height on each
         /// navigation — entering a folder, searching, opening an entry — which is
         /// distracting and moves the controls out from under the pointer.
-        static let popoverHeight: CGFloat = 460
+        ///
+        /// 400 is one notch above the measured floor. The binding constraint is the
+        /// unlock screen at its most crowded — wrong-password banner, Touch ID
+        /// checkbox, key file row and footer all at once — which fits here and clips
+        /// at 380. Shortening this further means trimming that screen first.
+        static let popoverHeight: CGFloat = 400
         /// Estimated height of one folder or entry row, used to size the list to its
         /// contents. Rows are icon + two lines of text plus padding.
         static let estimatedRowHeight: CGFloat = 40
