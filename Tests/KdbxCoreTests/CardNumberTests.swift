@@ -124,3 +124,98 @@ struct CardNumberTests {
         #expect(grouped.filter(\.isNumber) == digits)
     }
 }
+
+/// How a card's fields are ordered for display.
+///
+/// A card is read in a fixed order — number, expiry, security code, PIN — the same order
+/// it is printed on the plastic and asked for at a checkout. Sorting by name would put
+/// CVV above the number.
+@Suite("Card field order")
+struct CardFieldOrderTests {
+
+    static func card(_ fields: [String: String]) -> Entry {
+        var values: [String: FieldValue] = [Entry.titleField: .plain("Card")]
+        for (k, v) in fields { values[k] = FieldValue.makeProtected(v) }
+        return Entry(fields: values)
+    }
+
+    @Test("A card lists number, valid, CVV, then PIN")
+    func cardOrder() {
+        let entry = Self.card([
+            "Type": "card",
+            "CVV": "123",
+            "PIN": "4321",
+            "Card Number": "4111111111111111",
+            "Valid": "09/28",
+        ])
+        let names = entry.orderedCustomFields().map(\.name)
+
+        #expect(names.prefix(4).elementsEqual(["Card Number", "Valid", "CVV", "PIN"]))
+    }
+
+    /// Alphabetically these would come out CVV, Card Number, PIN, Valid — which is the
+    /// order this exists to prevent.
+    @Test("The order is not alphabetical")
+    func notAlphabetical() {
+        let entry = Self.card([
+            "Type": "card",
+            "CVV": "123",
+            "Card Number": "4111111111111111",
+        ])
+        let names = entry.orderedCustomFields().map(\.name)
+        #expect(names.firstIndex(of: "Card Number")! < names.firstIndex(of: "CVV")!)
+    }
+
+    @Test("Missing card fields are simply absent")
+    func missingFieldsSkipped() {
+        let entry = Self.card(["Type": "card", "Card Number": "4111111111111111", "CVV": "123"])
+        let names = entry.orderedCustomFields().map(\.name)
+        #expect(names.prefix(2).elementsEqual(["Card Number", "CVV"]))
+    }
+
+    /// Anything that is not a known card field keeps its alphabetical place, after them.
+    @Test("Other fields follow, in name order")
+    func othersFollowAlphabetically() {
+        let entry = Self.card([
+            "Type": "card",
+            "Card Number": "4111111111111111",
+            "Valid": "09/28",
+            "Zebra": "z",
+            "Bank": "Example Bank",
+        ])
+        let names = entry.orderedCustomFields().map(\.name)
+
+        #expect(names.prefix(2).elementsEqual(["Card Number", "Valid"]))
+        #expect(names.suffix(3).elementsEqual(["Bank", "Type", "Zebra"]),
+                "the leftovers stay alphabetical")
+    }
+
+    @Test("Expiry and PIN labels are matched by their common spellings", arguments: [
+        ("Valid", "PIN"), ("Valid Thru", "PIN Code"), ("Expiry", "Pin"),
+        ("Expiration Date", "ATM PIN"),
+    ])
+    func labelVariants(expiryLabel: String, pinLabel: String) {
+        let entry = Self.card([
+            "Type": "card",
+            "Card Number": "4111111111111111",
+            expiryLabel: "09/28",
+            "CVV": "123",
+            pinLabel: "4321",
+        ])
+        let names = entry.orderedCustomFields().map(\.name)
+        #expect(names.prefix(4).elementsEqual(["Card Number", expiryLabel, "CVV", pinLabel]),
+                "\(expiryLabel) / \(pinLabel)")
+    }
+
+    /// A login must keep plain alphabetical order.
+    @Test("A login is still listed alphabetically")
+    func loginStaysAlphabetical() {
+        let entry = Entry(fields: [
+            Entry.titleField: .plain("Login"),
+            Entry.passwordField: .makeProtected("hunter2"),
+            "Zebra": .plain("z"),
+            "Alpha": .plain("a"),
+        ])
+        #expect(entry.orderedCustomFields().map(\.name) == ["Alpha", "Zebra"])
+    }
+}

@@ -33,13 +33,14 @@ struct EntryDetailView: View {
         .onDisappear { revealed.removeAll() }
     }
 
-    /// Every field the user put on the entry, in name order — including ones left
-    /// empty. The TOTP keys are the exception: the live code is shown above, and the
+    /// Every field the user put on the entry, including ones left empty.
+    ///
+    /// Name order in general, but a card is listed the way it is read — number, expiry,
+    /// security code, PIN — rather than alphabetically, which would put CVV above the
+    /// number. The TOTP keys are the one omission: the live code is shown above, and the
     /// URI and seed that produce it are ingredients rather than content.
     private var displayableCustomFields: [(name: String, value: FieldValue)] {
-        entry.allCustomFields
-            .map { (name: $0.key, value: $0.value) }
-            .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+        entry.orderedCustomFields()
     }
 
     /// Attachments whose bytes are actually in the pool. A reference that does not

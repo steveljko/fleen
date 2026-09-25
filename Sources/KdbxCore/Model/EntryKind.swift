@@ -66,6 +66,39 @@ extension Entry {
         field(matching: Self.securityCodeLabels)
     }
 
+    public var cardPINField: (name: String, value: FieldValue)? {
+        field(matching: Self.pinLabels)
+    }
+
+    /// The custom fields in the order they should be shown.
+    ///
+    /// Alphabetical for anything else, but a card is read in a fixed order — number,
+    /// expiry, security code, PIN — and that order is the same on the plastic, on a
+    /// checkout page and in the quick-copy sequence. Sorting a card's fields by name
+    /// instead would put CVV above the number.
+    ///
+    /// Fields the card does not carry are simply absent, and anything left over keeps
+    /// its alphabetical place after the known ones.
+    public func orderedCustomFields() -> [(name: String, value: FieldValue)] {
+        let all = allCustomFields
+        let alphabetical = all
+            .map { (name: $0.key, value: $0.value) }
+            .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+
+        guard kind == .card else { return alphabetical }
+
+        let leading = [cardNumberField?.name, cardExpiryField?.name,
+                       cardSecurityCodeField?.name, cardPINField?.name].compactMap { $0 }
+        var seen = Set<String>()
+        let ordered = leading.compactMap { name -> (name: String, value: FieldValue)? in
+            guard all[name] != nil, seen.insert(name).inserted else { return nil }
+            return (name: name, value: all[name]!)
+        }
+        return ordered + alphabetical.filter { !seen.contains($0.name) }
+    }
+
+    static let pinLabels = ["pin", "pincode", "pinnumber", "atmpin", "cardpin"]
+
     private func field(matching labels: [String]) -> (name: String, value: FieldValue)? {
         let normalised = Dictionary(fields.keys.map { (CardNumber.normalise($0), $0) },
                                     uniquingKeysWith: { first, _ in first })

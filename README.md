@@ -267,6 +267,9 @@ Options: `--keyfile <path>`, `--no-password`, `--reveal`.
   what the next ⌘-click will copy (*"Card number copied · ⌘-click again for the
   expiry"*), and past the last step the sequence starts over rather than leaving the
   clipboard stuck on a security code.
+- **A card's fields are listed in the order a card is read** — number, valid thru,
+  security code, PIN — rather than alphabetically, which would put CVV above the number.
+  Anything else on the entry follows in name order. Ordinary entries stay alphabetical.
 - **Card numbers hide as `**** **** **** 1234`** rather than a generic run of dots, and
   read back in the issuer's grouping when revealed (Amex keeps its own 4-6-5). A field
   is treated as a card number when its label says so — `Card Number`, `card_number`,
