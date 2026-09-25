@@ -19,6 +19,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     private var statusItem: NSStatusItem?
     private var popover: NSPopover?
     private var resignObserver: (any NSObjectProtocol)?
+    private var becomeActiveObserver: (any NSObjectProtocol)?
     /// Watches for clicks anywhere outside the popover while it is open.
     private var outsideClickMonitor: Any?
     private var settingsObservers: [any NSObjectProtocol] = []
@@ -33,7 +34,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         diag("didFinishLaunching entered; log at \(Diagnostics.fileURL?.path ?? "?")")
         // Menu bar utility: no Dock icon, no menu bar app menu, unless asked for.
-        NSApp.setActivationPolicy(preferences.showInDock ? .regular : .accessory)
+        enforceActivationPolicy(reason: "launch")
 
         // Installs the Edit menu that makes ⌘A/⌘C/⌘V/⌘X/⌘Z work in text fields, and
         // the Vault menu whose shortcuts fire regardless of the responder chain.
@@ -47,6 +48,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         // user is left hunting the menu bar for an icon they have never seen before.
         if preferences.rememberedDatabase() == nil {
             DispatchQueue.main.async { [weak self] in self?.openPopover() }
+        }
+
+        // If anything puts the app back into `.regular`, take it out again at the next
+        // activation — that is the moment a Dock tile would become visible.
+        becomeActiveObserver = NotificationCenter.default.addObserver(
+            forName: NSApplication.didBecomeActiveNotification,
+            object: nil, queue: .main
+        ) { [weak self] _ in
+            MainActor.assumeIsolated { self?.enforceActivationPolicy(reason: "didBecomeActive") }
         }
 
         // Close the popover as soon as the app loses focus.
@@ -255,6 +265,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
     private func openPopover() {
         guard let popover, let button = statusItem?.button else { return }
+        // Before activating: activation is what makes a Dock tile appear, so the policy
+        // has to be right on the way in, not corrected afterwards.
+        enforceActivationPolicy(reason: "openPopover")
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         // Without this the popover's text fields cannot take key input, because an
         // accessory-policy app is not active by default.
@@ -336,6 +349,30 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         popover?.performClose(nil)
         presentation.closed()
         stopWatchingForOutsideClicks()
+    }
+
+    /// The policy this build should be in.
+    private var desiredActivationPolicy: NSApplication.ActivationPolicy {
+        preferences.showInDock ? .regular : .accessory
+    }
+
+    /// Re-asserts the activation policy, and says so when it had drifted.
+    ///
+    /// Setting it once at launch is *supposed* to be enough. This exists because a Dock
+    /// icon was reported for a build that had `LSUIElement` set and had been put in
+    /// `.accessory` at launch, and nothing in this code ever asks for `.regular`. Rather
+    /// than guess at which system interaction flips it — a panel, a prompt, an
+    /// activation — the policy is re-applied whenever the app becomes active, and the
+    /// drift is logged so the trigger can be identified rather than theorised about.
+    private func enforceActivationPolicy(reason: String) {
+        let desired = desiredActivationPolicy
+        let current = NSApp.activationPolicy()
+        guard current != desired else { return }
+        if reason != "launch" {
+            diag("activation policy drifted to \(current.rawValue) at \(reason); "
+                 + "restoring \(desired.rawValue)")
+        }
+        NSApp.setActivationPolicy(desired)
     }
 
     @objc private func showSettings() {
