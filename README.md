@@ -245,6 +245,11 @@ Options: `--keyfile <path>`, `--no-password`, `--reveal`.
   instead, and the `otpauth://` URI and seed that produce it are its ingredients, not
   information. Listing them beside the code would also be a second place to read the
   secret from.
+- **Previous versions.** An entry that KeePassXC has kept history for shows a collapsed
+  *Previous versions* list — each past password, masked until revealed, newest first,
+  with the date it changed and the old username when it differed. The data was always
+  parsed and never shown; this is the question a read-only companion should answer
+  without sending you back to KeePassXC.
 - **⌘-click an entry** to copy what you need from it, with each further ⌘-click within
   15 seconds copying the next thing. The sequence depends on what the entry is:
 
@@ -258,6 +263,9 @@ Options: `--keyfile <path>`, `--no-password`, `--reveal`.
   and no password is treated as a card without the marker, because the login sequence
   would otherwise try to copy a password that is not there and the click would appear to
   do nothing.
+
+  **⌘↩** does the same thing from the keyboard, and the entry's right-click menu lists it
+  — a shortcut nothing mentions is a shortcut nobody finds.
 
   It sits on **⌘-click rather than on a plain click** so it takes nothing away: a plain
   click still opens the entry, and there is no mode to be in or to forget you are in.
@@ -401,7 +409,7 @@ is attacker-controlled) and zeroes its 64 KiB scratch chunk on exit.
 | `reveal()` returns a `String` | Copying a password, or tapping reveal, puts it in a heap `String` that cannot be zeroed. Inherent to `String` and `NSPasteboard`; the call sites are deliberately few and named |
 | The unlock field is a SwiftUI `SecureField` | Its `String` is not ours to zero. It is cleared as soon as it is consumed — mitigation, not a guarantee |
 | Attachments are plain `Data` | Never zeroed, and an attachment may be a key file or recovery codes |
-| Nothing is `mlock`ed | Secrets can reach swap. macOS encrypts swap by default on Apple Silicon and with FileVault, which reduces but does not remove this |
+| ~~Nothing is `mlock`ed~~ | **Fixed.** Every `SecureBytes` pins its pages with `mlock`, so key material cannot be written to swap — zeroing on deinit is worthless if a copy was paged out first, since that copy is on disk and out of reach. `mlock` can fail against `RLIMIT_MEMLOCK`, so it is recorded rather than assumed (`isMemoryLocked`) and a failure does not stop the database opening |
 | No release-build check | The COW verification is `#if DEBUG`; release builds rely on the structure being right and the tests having proven it |
 
 **Integrity.** Header tampering is caught by its SHA-256 and by an HMAC under the
@@ -409,10 +417,34 @@ derived key; payload tampering by a per-block HMAC-SHA256 whose key is derived f
 the block index. Every block is authenticated *before* its bytes reach the cipher.
 All MAC and hash comparisons are constant-time.
 
-**Untrusted input.** A `.kdbx` file may be attacker-controlled — PLAN.md's threat
-model assumes it syncs through a third party. Every read is bounds-checked; Argon2
-cost parameters are range-checked before allocating; gzip output is capped against
-decompression bombs; XML external entity resolution is off.
+**Untrusted input, and what fuzzing found.** A `.kdbx` may be attacker-controlled —
+PLAN.md's threat model assumes it syncs through a third party, and a shared vault is a
+file someone else made. Every read is bounds-checked, gzip output is capped against
+decompression bombs, and XML external entity resolution is off.
+
+The claim that "Argon2 cost parameters are range-checked" used to appear here, and it was
+**false**: only the lower bounds were checked. Fuzzing found three bugs behind it, all
+reachable before anything is authenticated, because the KDF parameters are read from the
+header and the header is parsed before the key exists:
+
+| Found | Effect | Fix |
+|---|---|---|
+| No upper bound on Argon2 memory or iterations | A crafted header made one `open` run **107 seconds**, with nothing stopping it going higher | Caps on memory (1 GiB), iterations (1000), lanes (64), and on their product |
+| No upper bound on AES-KDF rounds | `rounds` is a `UInt64` driving `for _ in 0..<rounds` — a crafted header never returns | Capped at 100M, far above any real database |
+| `UInt32(memoryKiB)` narrowing a `UInt64` | **Traps** above `UInt32.max` — an uncatchable crash from a hostile file | Range-checked before converting, so the trapping conversion never happens |
+| `Argon2.Error` escaping `open` | Broke the documented contract that `open` throws only `KdbxError` | Wrapped at the `KeySchedule` boundary |
+
+`FuzzTests` keeps this honest: deterministic, seeded mutation of real databases, with a
+tier that repairs the header's SHA-256 so mutants reach the deeper parsers instead of
+dying at the integrity check. The contract under test is that **any** input either
+returns a database or throws a `KdbxError` — never a trap, a hang or an unbounded
+allocation. An ordinary `swift test` runs a smoke pass; the real run is:
+
+```bash
+FLEEN_FUZZ_ITERATIONS=20000 swift test
+```
+
+20,000 mutations per tier currently find nothing.
 
 **Nothing is written.** There is no encryption path, no serialiser and no save code
 in the engine — see [Read-only, by construction](#read-only-by-construction). The
@@ -698,8 +730,22 @@ Two commands to check this on your own database:
 
 If `kdf-scaling` does not show times falling as lanes rise, threading has regressed.
 
-Still not done, per PLAN.md: a real Instruments pass (Time Profiler + Allocations).
-These numbers are wall-clock measurements, which say nothing about allocation churn.
+**The Instruments pass PLAN.md asked for has now been done**, against a release build
+opening a real database repeatedly:
+
+| Measure | Result |
+|---|---|
+| Open + parse + index, excluding the KDF | **0.8 ms** mean over 400 opens |
+| Peak resident memory | **9.3 MB**, and flat: 8.9 MB at 10 opens, 9.3 MB at 1000 |
+| Leaks at exit | **0 leaks, 0 bytes** |
+
+Flat memory across a 100× change in workload is the part that matters: it means the
+engine is not accumulating copies of decrypted data, which was PLAN.md's specific
+concern about holding "one canonical in-memory store, not a parsed-XML copy plus a
+separate UI-model copy".
+
+Reproduce with `Scripts/profile.sh`, which also records a Time Profiler trace for
+opening in Instruments.
 
 ## Known limitations
 
@@ -723,9 +769,15 @@ These numbers are wall-clock measurements, which say nothing about allocation ch
 - **The entry list is SwiftUI `List`**, with results capped at 500. PLAN.md's
   NSTableView escape hatch has not been needed; if it ever is, `resultsList` in
   `VaultView.swift` is the single place to change.
-- **No app icon** yet — the bundle has no `.icns`.
-- **No Instruments pass.** The performance tests are regression guards only; PLAN.md
-  requires a real Time Profiler and Allocations run before sign-off.
+- **One database at a time.** Fleen remembers a single `.kdbx`; switching means choosing
+  another through Open Database…. Several vaults at once is the main feature still
+  missing, and it is a feature rather than a gap to patch: it needs decisions about
+  per-database Touch ID enrolment, which one opens on launch, and whether locking one
+  locks the rest.
+- **Notarisation is scripted but unused.** `Scripts/notarize.sh` is ready; running it
+  needs a *Developer ID Application* certificate, and this machine has only an Apple
+  Development one. Until then the app opens fine here and Gatekeeper will refuse it on
+  anyone else's Mac.
 
 ## Entitlements
 
