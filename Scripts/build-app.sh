@@ -111,6 +111,14 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN_PATH/Fleen" "$APP/Contents/MacOS/Fleen"
 
+# The icon is committed as a built .icns; Scripts/make-icon.swift regenerates it from
+# code, so it can be changed without a design tool in the loop.
+if [[ -f Resources/Fleen.icns ]]; then
+    cp Resources/Fleen.icns "$APP/Contents/Resources/Fleen.icns"
+else
+    echo "    NOTE: Resources/Fleen.icns missing — building without an app icon." >&2
+fi
+
 cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -136,6 +144,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <!-- Shown in the Touch ID prompt when unlocking with biometrics. -->
     <key>NSFaceIDUsageDescription</key>
     <string>Fleen uses biometrics to unlock your password vault.</string>
+
+    <key>CFBundleIconFile</key><string>Fleen</string>
 
     <key>NSHumanReadableCopyright</key><string>Local-only KeePass client.</string>
     <key>NSHighResolutionCapable</key><true/>
