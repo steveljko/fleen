@@ -107,7 +107,9 @@ struct UnlockView: View {
                 .help("Unlock with \(biometry.displayName)")
                 .accessibilityLabel("Unlock with \(biometry.displayName)")
 
-                Text(session.biometricPromptDeclined ? "Tap to Unlock" : "Touch to Unlock")
+                Text(session.biometricPromptDeclined
+                     ? "Tap to Unlock"
+                     : (biometry == .devicePassword ? "Unlock" : "Touch to Unlock"))
                     .font(.headline)
                     .foregroundStyle(Design.Palette.secondaryText)
 

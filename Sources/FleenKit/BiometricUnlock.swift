@@ -82,6 +82,10 @@ public enum BiometricUnlock {
     public enum Biometry: Sendable, Equatable {
         case touchID
         case opticID
+        /// No biometric sensor, but the Mac's own login password can still authorise —
+        /// which is the whole point of the fallback: a Mac without Touch ID, or with the
+        /// lid shut and an external keyboard attached, is not a Mac without security.
+        case devicePassword
         case none(reason: String)
 
         public var isAvailable: Bool {
@@ -93,6 +97,7 @@ public enum BiometricUnlock {
             switch self {
             case .touchID: return "Touch ID"
             case .opticID: return "Optic ID"
+            case .devicePassword: return "your Mac password"
             case .none: return "Biometric unlock"
             }
         }
@@ -102,14 +107,17 @@ public enum BiometricUnlock {
     public static func availability() -> Biometry {
         let context = LAContext()
         var error: NSError?
-        guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
-                                        error: &error) else {
-            return .none(reason: error?.localizedDescription ?? "Biometrics are not available.")
+        // `.deviceOwnerAuthentication`, not `…WithBiometrics`: it is satisfied by the
+        // sensor *or* the Mac's login password, so unlocking still works with the lid
+        // shut, on an external keyboard, or on a Mac with no Touch ID at all.
+        guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) else {
+            return .none(reason: error?.localizedDescription
+                         ?? "This Mac cannot authenticate you — set a login password first.")
         }
         switch context.biometryType {
         case .touchID: return .touchID
         case .opticID: return .opticID
-        default: return .none(reason: "This Mac has no supported biometric sensor.")
+        default: return .devicePassword
         }
     }
 
@@ -135,7 +143,11 @@ public enum BiometricUnlock {
                 // Device-only: never syncs to iCloud Keychain, never restored onto
                 // different hardware.
                 kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                .biometryCurrentSet,
+                // Either proof opens it. `.biometryCurrentSet` is kept rather than
+                // relaxed to `.userPresence`, so enrolling a new fingerprint still
+                // invalidates the stored key; `.devicePasscode` adds the fallback
+                // without giving that property up.
+                [.biometryCurrentSet, .or, .devicePasscode],
                 &error
             ) else {
                 let message = (error?.takeRetainedValue()).map { String(describing: $0) }
@@ -228,9 +240,12 @@ public enum BiometricUnlock {
 
             let context = LAContext()
             context.localizedReason = reason
-            // No password fallback: the login password is a different credential
-            // entirely. The UI offers the master password field instead.
-            context.localizedFallbackTitle = ""
+            // The password button is deliberately left in place. It asks for the *Mac's*
+            // login password, not the vault's master password — a different credential,
+            // and the one macOS already trusts to stand in for the sensor. Suppressing
+            // it is what left someone with an unreachable sensor no way in but typing
+            // the master password, which is the slow path this exists to avoid.
+            context.localizedFallbackTitle = "Use Password…"
 
             var query = baseQuery(account: account)
             query[kSecReturnData as String] = true
@@ -295,17 +310,21 @@ public enum BiometricUnlock {
         #endif
 
         let context = LAContext()
-        context.localizedFallbackTitle = ""
+        // Deliberately *not* `localizedFallbackTitle = ""`. Blanking it hides the
+        // password button, which is exactly what left someone with an unreachable
+        // sensor no way in but the master password.
+        context.localizedFallbackTitle = "Use Password…"
 
         var availabilityError: NSError?
-        guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+        guard context.canEvaluatePolicy(.deviceOwnerAuthentication,
                                         error: &availabilityError) else {
             throw Failure.notAvailable(
-                availabilityError.map { describe($0) } ?? "Biometrics are not available on this Mac.")
+                availabilityError.map { describe($0) }
+                ?? "This Mac cannot authenticate you — set a login password first.")
         }
 
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+            context.evaluatePolicy(.deviceOwnerAuthentication,
                                    localizedReason: reason) { success, error in
                 // `context` is captured here deliberately, and this is not redundant.
                 //

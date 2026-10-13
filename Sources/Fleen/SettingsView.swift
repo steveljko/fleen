@@ -130,7 +130,7 @@ struct SettingsView: View {
                         .onChange(of: biometricEnabled) { _, value in
                             preferences.biometricUnlockEnabled = value
                         }
-                    Text("Stores the derived key in the Keychain — never your master password. Unlocking still runs the full key derivation.")
+                    Text("Stores the derived key in the Keychain — never your master password. Unlocking still runs the full key derivation. If the sensor is unavailable — lid shut, external keyboard, no Touch ID on this Mac — the prompt offers your macOS login password instead, so you never have to fall back to typing the master password.")
                         .font(.caption)
                         .foregroundStyle(Design.Palette.secondaryText)
 

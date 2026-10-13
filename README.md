@@ -437,6 +437,22 @@ The screen shows only that bar and the word "Unlocking…" — no duration, no a
 name. The honesty is in how the bar behaves, not in making the user read about key
 derivation.
 
+**When the sensor is unreachable, the Mac's password stands in.** Fleen asks for
+`LAPolicy.deviceOwnerAuthentication` rather than `…WithBiometrics`, and the Keychain item
+is created with `[.biometryCurrentSet, .or, .devicePasscode]`. So a Mac with the lid shut,
+an external keyboard, or no Touch ID hardware at all still unlocks from the same prompt —
+by macOS login password instead of a fingerprint. Both proofs are OS-enforced and
+Secure Enclave-backed, so this adds no new secret to steal and nothing new to brute-force.
+
+> Why not an app PIN? A short PIN has to be stored somewhere Fleen can check it, which
+> means anyone able to read that store can guess it offline at whatever rate their
+> hardware allows — six digits is hours, four is minutes. The login password is a
+> credential macOS already holds, already rate-limits and already treats as equivalent to
+> the sensor, so it buys the same convenience without inventing a weaker key to the vault.
+> `.biometryCurrentSet` is kept rather than relaxed to `.userPresence`, so enrolling a new
+> fingerprint still invalidates the stored key; `.or .devicePasscode` adds the fallback
+> without giving that property up.
+
 **Touch ID stores the composite key, never the password.** The Keychain item is
 protected with `.biometryCurrentSet`, so enrolling a new fingerprint invalidates it.
 Unlocking with biometrics still runs the full KDF — Touch ID replaces *typing*, not
