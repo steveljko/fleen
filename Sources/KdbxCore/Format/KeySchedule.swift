@@ -13,23 +13,45 @@ struct KeySchedule {
     let cipherKey: SecureBytes
     let hmacSeed: SecureBytes
 
+    /// Narrows a header-supplied 64-bit cost parameter to the 32 bits Argon2 takes.
+    ///
+    /// `UInt32(value)` would **trap** above `UInt32.max`, and these values come from an
+    /// unauthenticated header — so a crafted file could take the process down before a
+    /// single byte was decrypted. A trap is not catchable, so the only fix is to never
+    /// perform the conversion that can trap.
+    private static func narrow(_ value: UInt64, field: String) throws -> UInt32 {
+        guard value <= UInt64(UInt32.max) else {
+            throw KdbxError.malformedHeader("\(field) of \(value) is out of range")
+        }
+        return UInt32(value)
+    }
+
     init(header: KdbxHeader, compositeKey: CompositeKey) throws {
         let raw = compositeKey.rawKey()
 
         let transformed: SecureBytes
-        switch header.kdf {
-        case .argon2d(let memoryKiB, let iterations, let parallelism, let version):
-            transformed = try Argon2.hash(
-                password: raw, salt: header.kdfSalt, variant: .d, version: version,
-                memoryKiB: UInt32(memoryKiB), iterations: UInt32(iterations),
-                parallelism: parallelism)
-        case .argon2id(let memoryKiB, let iterations, let parallelism, let version):
-            transformed = try Argon2.hash(
-                password: raw, salt: header.kdfSalt, variant: .id, version: version,
-                memoryKiB: UInt32(memoryKiB), iterations: UInt32(iterations),
-                parallelism: parallelism)
-        case .aesKdf(let rounds):
-            transformed = try AesKdf.transform(key: raw, seed: header.kdfSalt, rounds: rounds)
+        do {
+            switch header.kdf {
+            case .argon2d(let memoryKiB, let iterations, let parallelism, let version):
+                transformed = try Argon2.hash(
+                    password: raw, salt: header.kdfSalt, variant: .d, version: version,
+                    memoryKiB: try Self.narrow(memoryKiB, field: "Argon2 memory"),
+                    iterations: try Self.narrow(iterations, field: "Argon2 iterations"),
+                    parallelism: parallelism)
+            case .argon2id(let memoryKiB, let iterations, let parallelism, let version):
+                transformed = try Argon2.hash(
+                    password: raw, salt: header.kdfSalt, variant: .id, version: version,
+                    memoryKiB: try Self.narrow(memoryKiB, field: "Argon2 memory"),
+                    iterations: try Self.narrow(iterations, field: "Argon2 iterations"),
+                    parallelism: parallelism)
+            case .aesKdf(let rounds):
+                transformed = try AesKdf.transform(key: raw, seed: header.kdfSalt, rounds: rounds)
+            }
+        } catch let error as Argon2.Error {
+            // `Argon2.Error` is not a `KdbxError`, and `open` documents that it throws
+            // only `KdbxError`. Letting it through broke that contract — which the fuzzer
+            // caught as "threw a non-KdbxError" long before a user would have.
+            throw KdbxError.malformedHeader("rejected KDF parameters: \(error)")
         }
 
         // cipherKey = SHA-256(masterSeed ‖ transformed)

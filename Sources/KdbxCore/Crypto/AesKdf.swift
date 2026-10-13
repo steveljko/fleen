@@ -8,9 +8,19 @@ import CryptoKit
 /// Uses CommonCrypto's AES rather than a hand-rolled block cipher. Kept only for
 /// databases that still specify `AES-KDF`; Argon2 is the default for anything new.
 enum AesKdf {
+    /// 100 million — comfortably above KeePassXC's defaults, and a few seconds of work.
+    static let maximumRounds: UInt64 = 100_000_000
+
     static func transform(key: SecureBytes, seed: [UInt8], rounds: UInt64) throws -> SecureBytes {
         guard key.count == 32 else { throw KdbxError.cryptoFailure("AES-KDF needs a 32-byte key") }
         guard seed.count == 32 else { throw KdbxError.cryptoFailure("AES-KDF needs a 32-byte seed") }
+        // `rounds` is a `UInt64` read straight from an unauthenticated header, and it
+        // drives `for _ in 0..<rounds`. Without a ceiling, a crafted file asks for 2^64
+        // rounds and the unlock never returns. Real databases use tens of millions.
+        guard rounds <= maximumRounds else {
+            throw KdbxError.malformedHeader(
+                "AES-KDF asks for \(rounds) rounds, beyond the \(maximumRounds) limit")
+        }
 
         let working = SecureBytes(count: 32)
         working.withUnsafeMutableBytes { dst in

@@ -15,6 +15,16 @@ public enum Argon2 {
         }
     }
 
+    /// 1 GiB — KeePassXC's own maximum.
+    static let maximumMemoryKiB: UInt32 = 1024 * 1024
+    /// Real databases use single digits; 1000 is already extravagant.
+    static let maximumIterations: UInt32 = 1000
+    /// More lanes than any Mac has cores several times over.
+    static let maximumParallelism: UInt32 = 64
+    /// memoryKiB × iterations. Roughly 100× a typical database, which bounds a hostile
+    /// unlock to tens of seconds rather than hours.
+    static let maximumWork: UInt64 = 64 * 1024 * 1024
+
     public enum Error: Swift.Error, Sendable {
         case failed(code: Int32, message: String)
         case invalidParameters(String)
@@ -39,6 +49,38 @@ public enum Argon2 {
         guard parallelism >= 1 else { throw Error.invalidParameters("parallelism must be >= 1") }
         guard memoryKiB >= 8 * parallelism else {
             throw Error.invalidParameters("memory must be >= 8 * parallelism KiB")
+        }
+
+        // Upper bounds, which is the half that was missing.
+        //
+        // These parameters come out of the file's own header, and the header is parsed
+        // before anything is authenticated — so an attacker who can hand you a `.kdbx`
+        // chooses them. Only the lower bounds were checked, so a crafted header could
+        // ask for billions of iterations or terabytes of memory and the engine would
+        // dutifully try: fuzzing produced a single `open` that ran for 107 seconds, and
+        // nothing stopped it going far higher.
+        //
+        // The limits are far above anything a real database uses — KeePassXC's own
+        // maximum is 1 GiB with single-digit iterations — so a rejection here means the
+        // file is hostile or corrupt, not that someone was unusually careful.
+        guard memoryKiB <= Self.maximumMemoryKiB else {
+            throw Error.invalidParameters(
+                "memory of \(memoryKiB) KiB exceeds the \(Self.maximumMemoryKiB) KiB limit")
+        }
+        guard iterations <= Self.maximumIterations else {
+            throw Error.invalidParameters(
+                "\(iterations) iterations exceeds the limit of \(Self.maximumIterations)")
+        }
+        guard parallelism <= Self.maximumParallelism else {
+            throw Error.invalidParameters(
+                "parallelism of \(parallelism) exceeds the limit of \(Self.maximumParallelism)")
+        }
+        // Each bound alone still permits an absurd combination, so the product is capped
+        // too: this is what actually bounds the time an unlock can take.
+        guard UInt64(memoryKiB) * UInt64(iterations) <= Self.maximumWork else {
+            throw Error.invalidParameters(
+                "the combination of \(memoryKiB) KiB and \(iterations) iterations is "
+                + "beyond any plausible database")
         }
         guard version == 0x13 || version == 0x10 else {
             throw Error.invalidParameters("unsupported Argon2 version \(version)")
