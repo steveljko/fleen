@@ -14,6 +14,7 @@ struct EntryDetailView: View {
     let onCopied: (String) -> Void
 
     @State private var revealed: Set<String> = []
+    @State private var historyExpanded = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -23,6 +24,7 @@ struct EntryDetailView: View {
                     if hasAnyStandardField { standardFields }
                     if !displayableCustomFields.isEmpty { customFields }
                     if !resolvedAttachments.isEmpty { attachments }
+                    if !entry.history.isEmpty { history }
                     if hasMetadata { metadata }
                     if isEmptyEntry { emptyState }
                 }
@@ -30,7 +32,7 @@ struct EntryDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
-        .onDisappear { revealed.removeAll() }
+        .onDisappear { revealed.removeAll(); historyExpanded = false }
     }
 
     /// Every field the user put on the entry, including ones left empty.
@@ -194,6 +196,63 @@ struct EntryDetailView: View {
                 .accessibilityElement(children: .combine)
             }
         }
+    }
+
+    /// Previous versions of this entry, as KeePassXC recorded them.
+    ///
+    /// The data was already parsed and then thrown away — nothing read `Entry.history`.
+    /// It answers the question a read-only companion should be able to answer: what was
+    /// this password before I rotated it, and when did it change? Collapsed by default,
+    /// because it is a reference, not part of reading the entry.
+    private var history: some View {
+        DisclosureGroup(isExpanded: $historyExpanded) {
+            VStack(alignment: .leading, spacing: Design.Metrics.tightSpacing) {
+                ForEach(Array(sortedHistory.enumerated()), id: \.offset) { index, version in
+                    historyRow(version, index: index)
+                }
+            }
+            .padding(.top, Design.Metrics.tightSpacing)
+        } label: {
+            Text("Previous versions (\(entry.history.count))")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Design.Palette.secondaryText)
+        }
+    }
+
+    /// Newest first: the most recent previous value is the one someone is looking for.
+    private var sortedHistory: [Entry] {
+        entry.history.sorted {
+            ($0.times.lastModificationTime ?? .distantPast)
+                > ($1.times.lastModificationTime ?? .distantPast)
+        }
+    }
+
+    @ViewBuilder
+    private func historyRow(_ version: Entry, index: Int) -> some View {
+        let key = "__history.\(index)"
+        VStack(alignment: .leading, spacing: 2) {
+            Text(version.times.lastModificationTime
+                 .map { $0.formatted(date: .abbreviated, time: .shortened) }
+                 ?? "Undated version")
+                .font(.caption)
+                .foregroundStyle(Design.Palette.secondaryText)
+
+            if let password = version.password, !password.isEmpty {
+                FieldRow(label: "Password", value: password,
+                         isRevealed: revealed.contains(key),
+                         onCopy: { copy(password.reveal(), label: "Previous password",
+                                        secret: true) },
+                         onToggleReveal: { toggle(key) })
+            }
+            if !version.username.isEmpty, version.username != entry.username {
+                // Only when it differs: repeating the current username on every row is
+                // noise, and the point of this list is what changed.
+                Text("Username was \(version.username)")
+                    .font(.caption)
+                    .foregroundStyle(Design.Palette.secondaryText)
+            }
+        }
+        .padding(.vertical, 2)
     }
 
     private var metadata: some View {
