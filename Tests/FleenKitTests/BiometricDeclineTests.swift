@@ -7,6 +7,19 @@ import Foundation
 ///
 /// Uses the debug authenticator seam, so no real prompt appears and the outcome does not
 /// depend on anyone touching a sensor.
+/// Parent suite for everything that drives `BiometricUnlock.authenticatorForTesting`.
+///
+/// That hook is a process-global `nonisolated(unsafe) static var`, so two suites using it
+/// at the same time overwrite each other's authenticator — which made these tests fail
+/// roughly one run in five. `.serialized` on a suite only orders the tests *inside* it,
+/// and sibling suites still run in parallel, so the trait has to live on a parent that
+/// contains both.
+@MainActor
+@Suite("Biometrics", .serialized)
+struct BiometricSuites {}
+
+extension BiometricSuites {
+
 @MainActor
 @Suite("Biometric decline", .serialized)
 struct BiometricDeclineTests {
@@ -140,4 +153,6 @@ struct BiometricDeclineTests {
         #expect(!session.biometricPromptDeclined,
                 "the next session should be offered Touch ID again")
     }
+}
+
 }

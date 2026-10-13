@@ -16,6 +16,8 @@ import KdbxCore
 /// A real biometric item cannot be exercised in a test run — it needs user presence —
 /// but the *detection* can be, which is the part that has to be right. An unprotected
 /// item is written deliberately here and must be recognised as unprotected.
+extension BiometricSuites {
+
 @Suite("Biometric enforcement", .serialized)
 struct BiometricEnforcementTests {
 
@@ -154,4 +156,6 @@ struct BiometricEnforcementTests {
         #expect(message.contains("no prompt"))
         #expect(message.contains("Sign the app"))
     }
+}
+
 }
