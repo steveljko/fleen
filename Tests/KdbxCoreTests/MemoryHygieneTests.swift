@@ -89,3 +89,45 @@ struct MemoryHygieneTests {
         #expect(throws: KdbxError.self) { _ = try Gzip.decompress(compressed) }
     }
 }
+
+/// Key material is pinned in physical memory.
+///
+/// Zeroing on deinit is worthless if a copy was paged out first: that copy is on disk,
+/// outside the process, and `memset_s` cannot reach it.
+@Suite("Memory locking")
+struct MemoryLockingTests {
+
+    @Test("A fresh buffer is pinned")
+    func bufferIsLocked() {
+        let secret = SecureBytes(count: 64)
+        #expect(secret.isMemoryLocked, "mlock failed — check RLIMIT_MEMLOCK")
+    }
+
+    /// `mlock` works in whole pages, so sizes either side of a page boundary are worth
+    /// checking rather than assuming.
+    @Test("Buffers of any size are pinned", arguments: [1, 32, 4095, 4096, 4097, 65536])
+    func sizesAreLocked(count: Int) {
+        #expect(SecureBytes(count: count).isMemoryLocked, "\(count) bytes")
+    }
+
+    /// The real keys, not just synthetic buffers.
+    @Test("A database's protected values are pinned")
+    func databaseSecretsAreLocked() throws {
+        let database = try Fixture.open("pkp-aes-argon2d.kdbx")
+        let entry = try #require(database.allEntries.first { $0.password != nil })
+        guard case .protected(let bytes) = try #require(entry.password) else {
+            Issue.record("the fixture's password should be protected")
+            return
+        }
+        #expect(bytes.isMemoryLocked)
+    }
+
+    /// Locking must not corrupt what it protects.
+    @Test("Pinning does not disturb the contents")
+    func contentsSurvive() {
+        let original: [UInt8] = Array(0...255)
+        let secret = SecureBytes(original)
+        let read = secret.withUnsafeBytes { [UInt8]($0) }
+        #expect(read == original)
+    }
+}

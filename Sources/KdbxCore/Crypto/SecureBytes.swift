@@ -12,7 +12,14 @@ public final class SecureBytes: @unchecked Sendable {
     private let storage: UnsafeMutableRawPointer
     public let count: Int
 
-    /// Allocates `count` zeroed bytes.
+    /// Whether this buffer is pinned in physical memory.
+    ///
+    /// Not a guarantee: `mlock` has a per-process limit (`RLIMIT_MEMLOCK`) and can fail,
+    /// and failing is not a reason to refuse to open a database. Recorded so the deinit
+    /// knows whether to unlock, and so the state is inspectable rather than assumed.
+    private let isLocked: Bool
+
+    /// Allocates `count` zeroed bytes, pinned in memory where the OS allows it.
     public init(count: Int) {
         precondition(count >= 0)
         self.count = count
@@ -21,6 +28,14 @@ public final class SecureBytes: @unchecked Sendable {
         self.storage = UnsafeMutableRawPointer.allocate(
             byteCount: max(count, 1), alignment: 16)
         self.storage.initializeMemory(as: UInt8.self, repeating: 0, count: max(count, 1))
+
+        // Pin the pages so the key cannot be written to swap. Zeroing on deinit is
+        // worthless if a copy was paged out first — that copy is on disk, outside this
+        // process's reach, and nothing here can erase it. macOS encrypts swap by
+        // default, which narrows the exposure but does not remove it: the swap key
+        // lives for the boot, so a hibernation image or a live-memory capture still
+        // contains the plaintext.
+        self.isLocked = mlock(self.storage, max(count, 1)) == 0
     }
 
     public convenience init(_ bytes: [UInt8]) {
@@ -50,8 +65,14 @@ public final class SecureBytes: @unchecked Sendable {
 
     deinit {
         memset_s(storage, count, 0, count)
+        // Unlock only after zeroing: unlocking first would allow the pages to be paged
+        // out in the window before the wipe, which is the exact thing being prevented.
+        if isLocked { munlock(storage, max(count, 1)) }
         storage.deallocate()
     }
+
+    /// Whether this buffer is pinned in physical memory, for diagnostics and tests.
+    public var isMemoryLocked: Bool { isLocked }
 
     /// Read-only access to the raw bytes. The pointer is valid only for the call.
     public func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) rethrows -> R {
