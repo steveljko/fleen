@@ -185,7 +185,8 @@ struct VaultView: View {
                 onMoveToStart: { moveSelectionToEdge(first: true) },
                 onMoveToEnd: { moveSelectionToEdge(first: false) },
                 onPageUp: moveSelection(by: -pageSize),
-                onPageDown: moveSelection(by: pageSize))
+                onPageDown: moveSelection(by: pageSize),
+                onQuickCopy: quickCopySelection)
             .frame(height: Design.Metrics.controlHeight)
 
             optionsMenu
@@ -555,6 +556,12 @@ struct VaultView: View {
             }
         case .entry(let record):
             let id = record.id
+            if preferences.quickCopy {
+                // The only place ⌘-click is advertised. A shortcut nothing mentions is a
+                // shortcut nobody finds.
+                Button("Quick Copy  ⌘-click or ⌘↩") { quickCopy(id) }
+                Divider()
+            }
             Button("Copy Password") { selection = id; copyPassword() }
             Button("Copy Username") { selection = id; copyUsername() }
             Button("Copy Address") { selection = id; copyURL() }
@@ -726,6 +733,15 @@ struct VaultView: View {
     /// a click still opens the entry, and the copy sequence is there when wanted without
     /// a mode to be in. Return opens the entry too.
     enum Activation { case click, commandClick, keyboard }
+
+    /// ⌘Return on the selected entry: the keyboard equivalent of ⌘-click.
+    private func quickCopySelection() {
+        guard preferences.quickCopy,
+              let id = actionableID,
+              let node = visibleRows.first(where: { $0.id == id }),
+              case .entry(let record) = node.kind else { return }
+        quickCopy(record.id)
+    }
 
     /// Return: folders open and close, entries show their details.
     private func activateSelection() {

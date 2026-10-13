@@ -30,6 +30,8 @@ struct SearchField: NSViewRepresentable {
     var onMoveToEnd: () -> Void = {}
     var onPageUp: () -> Void = {}
     var onPageDown: () -> Void = {}
+    /// ⌘Return: the keyboard equivalent of ⌘-clicking a row.
+    var onQuickCopy: () -> Void = {}
 
     func makeNSView(context: Context) -> NSSearchField {
         let field = KeyForwardingSearchField()
@@ -117,13 +119,18 @@ private final class KeyForwardingSearchField: NSSearchField {
     var onMoveToEnd: () -> Void = {}
     var onPageUp: () -> Void = {}
     var onPageDown: () -> Void = {}
+    /// ⌘Return: the keyboard equivalent of ⌘-clicking a row.
+    var onQuickCopy: () -> Void = {}
 
     override func keyDown(with event: NSEvent) {
         switch Int(event.keyCode) {
         case 126: onMoveUp();   return   // ↑
         case 125: onMoveDown(); return   // ↓
         case 36, 76:                     // Return, Enter
-            onSubmit(); return
+            // ⌘Return mirrors ⌘-click, so the copy sequence is reachable without a
+            // mouse — PLAN.md asks for the core workflow to need no pointer.
+            if event.modifierFlags.contains(.command) { onQuickCopy() } else { onSubmit() }
+            return
         case 123 where stringValue.isEmpty:   // ← only when not editing text
             onMoveLeft(); return
         case 124 where stringValue.isEmpty:   // → only when not editing text
