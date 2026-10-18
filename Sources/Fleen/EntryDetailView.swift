@@ -33,7 +33,18 @@ struct EntryDetailView: View {
             }
         }
         .onDisappear { revealed.removeAll(); historyExpanded = false }
+        // A revealed value is readable by anything watching the screen or the
+        // accessibility tree, so it does not stay revealed for longer than it takes to
+        // read. Restarts whenever another field is revealed.
+        .task(id: revealed) {
+            guard !revealed.isEmpty else { return }
+            try? await Task.sleep(for: .seconds(Self.revealDuration))
+            guard !Task.isCancelled else { return }
+            withAnimation(Design.animation()) { revealed.removeAll() }
+        }
     }
+
+    static let revealDuration = 30
 
     /// Every field the user put on the entry, including ones left empty.
     ///
@@ -289,7 +300,13 @@ struct EntryDetailView: View {
     }
 
     private func openURL() {
-        guard let url = URL(string: entry.url), url.scheme != nil else { return }
+        // Web addresses only. The URL comes from the database, which may be shared or
+        // tampered with, and `NSWorkspace.open` will just as happily launch a `file://`
+        // app, mount an `smb://` share or fire another app's URL handler — none of
+        // which is what a button labelled "Open in browser" should do.
+        guard let url = URL(string: entry.url),
+              let scheme = url.scheme?.lowercased(),
+              ["http", "https"].contains(scheme) else { NSSound.beep(); return }
         NSWorkspace.shared.open(url)
     }
 

@@ -156,6 +156,16 @@ PLIST
 if [[ $USE_FULL_ENTITLEMENTS -eq 1 ]]; then
     cp Resources/Fleen.entitlements build/entitlements/app.plist
     cat "$PROFILE" > "$APP/Contents/embedded.provisionprofile"
+    # The data-protection Keychain — the only place Touch ID is enforced by macOS rather
+    # than by Fleen — needs the application identifier *in the signature*. Embedding the
+    # profile is not enough; Xcode copies these across, and so must this script.
+    # Without them Fleen silently fell back to the legacy keychain, where the stored key
+    # is readable by anyone who knows the macOS login password.
+    for key in com.apple.application-identifier com.apple.developer.team-identifier; do
+        value="$(plutil -extract "Entitlements.${key//./\\.}" raw -o - \
+            build/entitlements/profile.plist)"
+        /usr/libexec/PlistBuddy -c "Add :$key string $value" build/entitlements/app.plist
+    done
 else
     cp Resources/Fleen.dev.entitlements build/entitlements/app.plist
 fi
@@ -164,6 +174,14 @@ echo "==> Signing (identity: $IDENTITY)"
 codesign --force --sign "$IDENTITY" \
     --entitlements build/entitlements/app.plist \
     --options runtime --timestamp=none "$APP" 2>&1 | sed 's/^/    /'
+
+if [[ $USE_FULL_ENTITLEMENTS -eq 1 ]] \
+   && ! codesign -d --entitlements - "$APP" 2>/dev/null \
+        | grep -q "com.apple.application-identifier"; then
+    echo "ERROR: signed without com.apple.application-identifier; Touch ID would not be" >&2
+    echo "       guarded by the Keychain." >&2
+    exit 1
+fi
 
 # Catch the unlaunchable combination before the user discovers it as error 163.
 if [[ $USE_FULL_ENTITLEMENTS -eq 0 ]] \

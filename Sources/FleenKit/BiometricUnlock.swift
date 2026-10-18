@@ -77,6 +77,24 @@ public enum BiometricUnlock {
         Keychain.supportsDataProtection ? .enforcedByKeychain : .enforcedByApp
     }
 
+    /// Whether this build may store a key at all.
+    ///
+    /// App-enforced storage leaves the composite key in the login keychain with no OS
+    /// gate, where anyone who knows the macOS login password can read it with
+    /// `security find-generic-password -w` — and with the `.kdbx` that key opens the
+    /// vault. That is acceptable for a development build and nothing else, so a release
+    /// build without the data-protection keychain offers no Touch ID at all.
+    public static var canStoreKeys: Bool {
+        #if DEBUG
+        return true
+        #else
+        return availableProtectionLevel.isCryptographicallyBound
+        #endif
+    }
+
+    static let unsignedBuildReason =
+        "Touch ID needs a build signed with your Apple Developer team, so macOS itself can guard the stored key."
+
     static let service = "com.fleen.Fleen.vault-key"
 
     public enum Biometry: Sendable, Equatable {
@@ -103,14 +121,26 @@ public enum BiometricUnlock {
         }
     }
 
+    /// The LocalAuthentication policy matching the user's choice.
+    ///
+    /// `.deviceOwnerAuthentication` is satisfied by the sensor *or* the Mac's login
+    /// password, which keeps unlocking possible with the lid shut or on a Mac without
+    /// Touch ID — but it also means the login password alone opens the vault. That is a
+    /// real reduction (the login password is typed far more often, in front of more
+    /// people, than the master password), so it is opt-in.
+    static func policy(allowDevicePassword: Bool) -> LAPolicy {
+        allowDevicePassword ? .deviceOwnerAuthentication : .deviceOwnerAuthenticationWithBiometrics
+    }
+
     /// What this Mac can actually do, for the settings UI to reflect honestly.
-    public static func availability() -> Biometry {
+    public static func availability(
+        allowDevicePassword: Bool = Preferences.shared.allowDevicePasswordFallback
+    ) -> Biometry {
+        guard canStoreKeys else { return .none(reason: unsignedBuildReason) }
         let context = LAContext()
         var error: NSError?
-        // `.deviceOwnerAuthentication`, not `…WithBiometrics`: it is satisfied by the
-        // sensor *or* the Mac's login password, so unlocking still works with the lid
-        // shut, on an external keyboard, or on a Mac with no Touch ID at all.
-        guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) else {
+        guard context.canEvaluatePolicy(policy(allowDevicePassword: allowDevicePassword),
+                                        error: &error) else {
             return .none(reason: error?.localizedDescription
                          ?? "This Mac cannot authenticate you — set a login password first.")
         }
@@ -129,7 +159,11 @@ public enum BiometricUnlock {
     /// stored plainly and Fleen requires Touch ID itself before reading it. Which of the
     /// two applied is reported by `availableProtectionLevel`, and shown in Settings,
     /// because they are not equivalent.
-    public static func enroll(compositeKey: SecureBytes, account: String) throws {
+    public static func enroll(
+        compositeKey: SecureBytes, account: String,
+        allowDevicePassword: Bool = Preferences.shared.allowDevicePasswordFallback
+    ) throws {
+        guard canStoreKeys else { throw Failure.notAvailable(unsignedBuildReason) }
         remove(account: account)
 
         var secret = compositeKey.unsafeData()
@@ -143,11 +177,11 @@ public enum BiometricUnlock {
                 // Device-only: never syncs to iCloud Keychain, never restored onto
                 // different hardware.
                 kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                // Either proof opens it. `.biometryCurrentSet` is kept rather than
-                // relaxed to `.userPresence`, so enrolling a new fingerprint still
-                // invalidates the stored key; `.devicePasscode` adds the fallback
-                // without giving that property up.
-                [.biometryCurrentSet, .or, .devicePasscode],
+                // `.biometryCurrentSet`: enrolling a new fingerprint invalidates the
+                // key. The login password is accepted only if the user opted in, since
+                // it then opens the vault on its own.
+                allowDevicePassword ? [.biometryCurrentSet, .or, .devicePasscode]
+                                    : [.biometryCurrentSet],
                 &error
             ) else {
                 let message = (error?.takeRetainedValue()).map { String(describing: $0) }
@@ -229,7 +263,11 @@ public enum BiometricUnlock {
     ///
     /// Async because in app-enforced mode the biometric prompt is ours to present, and
     /// `LAContext.evaluatePolicy` is callback-based.
-    public static func retrieve(account: String, reason: String) async throws -> SecureBytes {
+    public static func retrieve(
+        account: String, reason: String,
+        allowDevicePassword: Bool = Preferences.shared.allowDevicePasswordFallback
+    ) async throws -> SecureBytes {
+        guard canStoreKeys else { throw Failure.notAvailable(unsignedBuildReason) }
         switch availableProtectionLevel {
         case .enforcedByKeychain:
             // The Keychain shows its own prompt as a condition of releasing the item.
@@ -240,12 +278,11 @@ public enum BiometricUnlock {
 
             let context = LAContext()
             context.localizedReason = reason
-            // The password button is deliberately left in place. It asks for the *Mac's*
-            // login password, not the vault's master password — a different credential,
-            // and the one macOS already trusts to stand in for the sensor. Suppressing
-            // it is what left someone with an unreachable sensor no way in but typing
-            // the master password, which is the slow path this exists to avoid.
-            context.localizedFallbackTitle = "Use Password…"
+            // With the fallback on, the button asks for the Mac's login password. With
+            // it off, the item will not accept that password anyway, so the button
+            // leads back to the master password field instead (it cancels the prompt).
+            context.localizedFallbackTitle = allowDevicePassword
+                ? "Use Password…" : "Use Master Password"
 
             var query = baseQuery(account: account)
             query[kSecReturnData as String] = true
@@ -272,7 +309,7 @@ public enum BiometricUnlock {
         case .enforcedByApp:
             // Demand biometrics before touching the item. This is the whole protection
             // in this mode, so it happens first and a failure returns nothing.
-            try await authenticate(reason: reason)
+            try await authenticate(reason: reason, allowDevicePassword: allowDevicePassword)
 
             var query = baseQuery(account: account)
             query[kSecReturnData as String] = true
@@ -301,7 +338,7 @@ public enum BiometricUnlock {
     #endif
 
     /// Presents the system biometric prompt, throwing unless it succeeds.
-    static func authenticate(reason: String) async throws {
+    static func authenticate(reason: String, allowDevicePassword: Bool) async throws {
         #if DEBUG
         if let authenticatorForTesting {
             try await authenticatorForTesting(reason)
@@ -310,22 +347,19 @@ public enum BiometricUnlock {
         #endif
 
         let context = LAContext()
-        // Deliberately *not* `localizedFallbackTitle = ""`. Blanking it hides the
-        // password button, which is exactly what left someone with an unreachable
-        // sensor no way in but the master password.
-        context.localizedFallbackTitle = "Use Password…"
+        context.localizedFallbackTitle = allowDevicePassword
+            ? "Use Password…" : "Use Master Password"
+        let policy = Self.policy(allowDevicePassword: allowDevicePassword)
 
         var availabilityError: NSError?
-        guard context.canEvaluatePolicy(.deviceOwnerAuthentication,
-                                        error: &availabilityError) else {
+        guard context.canEvaluatePolicy(policy, error: &availabilityError) else {
             throw Failure.notAvailable(
                 availabilityError.map { describe($0) }
                 ?? "This Mac cannot authenticate you — set a login password first.")
         }
 
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            context.evaluatePolicy(.deviceOwnerAuthentication,
-                                   localizedReason: reason) { success, error in
+            context.evaluatePolicy(policy, localizedReason: reason) { success, error in
                 // `context` is captured here deliberately, and this is not redundant.
                 //
                 // An `LAContext` must stay alive for the whole evaluation. Only the
@@ -389,6 +423,7 @@ public enum BiometricUnlock {
     }
 
     public static func hasEnrolledKey(account: String) -> Bool {
+        guard canStoreKeys else { return false }
         var query = baseQuery(account: account)
         query[kSecReturnData as String] = false
         query[kSecUseAuthenticationUI as String] = kSecUseAuthenticationUIFail
@@ -419,6 +454,30 @@ public enum BiometricUnlock {
             kSecAttrAccount as String: account,
         ]
         return Keychain.delete(query) == errSecSuccess
+    }
+
+    /// Removes every stored key, for every database. Used when the user turns Touch ID
+    /// off or changes what it accepts: an unused key left behind is still a key.
+    public static func removeAll() {
+        _ = Keychain.delete([
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+        ])
+    }
+
+    /// Deletes keys a release build must not keep: anything in the legacy keychain.
+    ///
+    /// Earlier builds wrote the composite key there with no OS-level gate (app-enforced
+    /// mode), where the macOS login password is enough to read it out. A release build
+    /// never reads such an item, so leaving it on disk would only leave it extractable.
+    /// The user re-enrols the next time they unlock with the master password.
+    public static func purgeUnprotectedKeys() {
+        #if !DEBUG
+        _ = Keychain.deleteLegacy([
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+        ])
+        #endif
     }
 
     /// A stable per-database account name. The path is hashed rather than stored so

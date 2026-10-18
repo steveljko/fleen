@@ -45,7 +45,8 @@ struct DeviceAuthFallbackTests {
     /// it reported `.none` and the whole thing switched itself off.
     @Test("Availability reports a usable method rather than giving up")
     func availabilityIsUsable() {
-        let availability = BiometricUnlock.availability()
+        // With the opt-in on: that is the setting this suite is about.
+        let availability = BiometricUnlock.availability(allowDevicePassword: true)
         let context = LAContext()
         guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) else {
             // No login password set: reporting none is correct.

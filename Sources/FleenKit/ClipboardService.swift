@@ -22,6 +22,8 @@ public final class ClipboardService {
 
     /// UTI understood by clipboard managers as "do not record this".
     static let concealedType = NSPasteboard.PasteboardType("org.nspasteboard.ConcealedType")
+    /// "Do not keep a history of this" — the companion marker clipboard tools check.
+    static let transientType = NSPasteboard.PasteboardType("org.nspasteboard.TransientType")
 
     /// Not observed: only `secondsRemaining` drives the UI, and marking the rest
     /// observable would invalidate views on every internal bookkeeping change.
@@ -46,11 +48,15 @@ public final class ClipboardService {
     public func copySecret(_ value: String, clearAfter seconds: Int) {
         clearTask?.cancel()
 
-        pasteboard.clearContents()
-        // The concealed marker must be declared alongside the string, not instead of
-        // it, or nothing can paste the value at all.
+        // `.currentHostOnly` keeps the secret off Universal Clipboard. Without it a copied
+        // password lands on the user's iPhone or iPad too, where the auto-clear below
+        // never reaches and any app can read it.
+        pasteboard.prepareForNewContents(with: .currentHostOnly)
+        // The markers must be declared alongside the string, not instead of it, or
+        // nothing can paste the value at all.
         pasteboard.setString(value, forType: .string)
         pasteboard.setData(Data(), forType: Self.concealedType)
+        pasteboard.setData(Data(), forType: Self.transientType)
         ownedChangeCount = pasteboard.changeCount
 
         guard seconds > 0 else {

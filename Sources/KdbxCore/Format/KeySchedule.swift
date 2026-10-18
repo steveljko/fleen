@@ -55,25 +55,27 @@ struct KeySchedule {
         }
 
         // cipherKey = SHA-256(masterSeed ‖ transformed)
+        // Hashed straight from the buffers: `Data($0)` / `Array(digest)` temporaries
+        // would each be an unwiped heap copy of key material.
         var keyHasher = SHA256()
-        keyHasher.update(data: Data(header.masterSeed))
-        transformed.withUnsafeBytes { keyHasher.update(data: Data($0)) }
-        self.cipherKey = SecureBytes(Array(keyHasher.finalize()))
+        keyHasher.update(data: header.masterSeed)
+        transformed.withUnsafeBytes { keyHasher.update(bufferPointer: $0) }
+        self.cipherKey = SecureBytes(contiguous: keyHasher.finalize())
 
         // hmacSeed = SHA-512(masterSeed ‖ transformed ‖ 0x01)
         var macHasher = SHA512()
-        macHasher.update(data: Data(header.masterSeed))
-        transformed.withUnsafeBytes { macHasher.update(data: Data($0)) }
-        macHasher.update(data: Data([0x01]))
-        self.hmacSeed = SecureBytes(Array(macHasher.finalize()))
+        macHasher.update(data: header.masterSeed)
+        transformed.withUnsafeBytes { macHasher.update(bufferPointer: $0) }
+        macHasher.update(data: [0x01])
+        self.hmacSeed = SecureBytes(contiguous: macHasher.finalize())
     }
 
     /// Per-block HMAC key. Index `UInt64.max` is reserved for the header.
     func blockKey(index: UInt64) -> SecureBytes {
         var hasher = SHA512()
-        withUnsafeBytes(of: index.littleEndian) { hasher.update(data: Data($0)) }
-        hmacSeed.withUnsafeBytes { hasher.update(data: Data($0)) }
-        return SecureBytes(Array(hasher.finalize()))
+        withUnsafeBytes(of: index.littleEndian) { hasher.update(bufferPointer: $0) }
+        hmacSeed.withUnsafeBytes { hasher.update(bufferPointer: $0) }
+        return SecureBytes(contiguous: hasher.finalize())
     }
 
     static let headerBlockIndex = UInt64.max

@@ -45,7 +45,10 @@ func seconds(_ duration: Duration) -> Double {
 
 func promptPassword(_ prompt: String) throws -> String {
     guard let raw = getpass(prompt) else { throw CLIError("could not read a password") }
-    return String(cString: raw)
+    let password = String(cString: raw)
+    // getpass returns a static buffer that keeps the password until the next call.
+    _ = memset_s(raw, strlen(raw), 0, strlen(raw))
+    return password
 }
 
 func credentials(keyFile: String?, usePassword: Bool) throws -> CompositeKey {

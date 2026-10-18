@@ -70,6 +70,14 @@ struct Salsa20 {
         SecureBytes.wipe(&w)
     }
 
+    /// Zeroes the key-bearing state and the buffered keystream. The state array holds
+    /// the key verbatim, so dropping the value without this leaves it on the heap.
+    mutating func wipe() {
+        SecureBytes.wipe(&state)
+        SecureBytes.wipe(&keystream)
+        keystreamOffset = 64
+    }
+
     mutating func process(_ data: inout [UInt8]) {
         var i = 0
         while i < data.count {

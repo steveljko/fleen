@@ -53,7 +53,7 @@ enum AesKdf {
             }
         }
 
-        let digest = working.withUnsafeBytes { SHA256.hash(data: Data($0)) }
-        return SecureBytes(Array(digest))
+        let digest = working.withUnsafeBytes { SHA256.hash(data: $0) }
+        return SecureBytes(contiguous: digest)
     }
 }

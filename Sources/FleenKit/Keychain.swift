@@ -93,6 +93,11 @@ enum Keychain {
         return status
     }
 
+    /// Deletes matching items from the legacy keychain only.
+    static func deleteLegacy(_ query: [String: Any]) -> OSStatus {
+        SecItemDelete(legacy(query) as CFDictionary)
+    }
+
     /// Maps the statuses worth explaining differently.
     static func describe(_ status: OSStatus) -> String {
         switch status {

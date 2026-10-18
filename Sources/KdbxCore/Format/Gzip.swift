@@ -23,7 +23,6 @@ enum Gzip {
         // The scratch chunk holds decrypted plaintext on every pass, so it is zeroed
         // before the allocation is handed back to the heap.
         defer { SecureBytes.wipe(&chunk) }
-        var input = input
 
         // Reserve up front from gzip's ISIZE trailer. Growing a `Data` by `append`
         // reallocates, and a reallocation copies the plaintext to a new block and frees
@@ -36,32 +35,44 @@ enum Gzip {
             output.reserveCapacity(min(hint, 64 * 1024 * 1024))
         }
 
-        let status: Int32 = try input.withUnsafeMutableBytes { inBuf -> Int32 in
-            stream.next_in = inBuf.baseAddress?.assumingMemoryBound(to: Bytef.self)
-            stream.avail_in = uInt(inBuf.count)
+        // Read-only access to the caller's buffer. This used to be `var input = input`
+        // plus `withUnsafeMutableBytes`, which — because the caller still holds the same
+        // `Data` — made a copy-on-write copy of the whole decrypted payload that nothing
+        // ever wiped. zlib does not write through `next_in`; the cast only satisfies
+        // its C signature.
+        let status: Int32
+        do {
+            status = try input.withUnsafeBytes { inBuf -> Int32 in
+                stream.next_in = UnsafeMutablePointer(
+                    mutating: inBuf.baseAddress?.assumingMemoryBound(to: Bytef.self))
+                stream.avail_in = uInt(inBuf.count)
 
-            while true {
-                let result: Int32 = chunk.withUnsafeMutableBufferPointer { outBuf -> Int32 in
-                    stream.next_out = outBuf.baseAddress
-                    stream.avail_out = uInt(chunkSize)
-                    return inflate(&stream, Z_NO_FLUSH)
-                }
-
-                switch result {
-                case Z_OK, Z_STREAM_END, Z_BUF_ERROR:
-                    let produced = chunkSize - Int(stream.avail_out)
-                    if produced > 0 {
-                        guard output.count + produced <= maxDecompressedSize else {
-                            throw KdbxError.payloadCorrupted("decompressed contents are implausibly large")
-                        }
-                        output.append(contentsOf: chunk[0..<produced])
+                while true {
+                    let result: Int32 = chunk.withUnsafeMutableBufferPointer { outBuf -> Int32 in
+                        stream.next_out = outBuf.baseAddress
+                        stream.avail_out = uInt(chunkSize)
+                        return inflate(&stream, Z_NO_FLUSH)
                     }
-                    if result == Z_STREAM_END { return Z_STREAM_END }
-                    if result == Z_BUF_ERROR && produced == 0 { return Z_BUF_ERROR }
-                default:
-                    return result
+
+                    switch result {
+                    case Z_OK, Z_STREAM_END, Z_BUF_ERROR:
+                        let produced = chunkSize - Int(stream.avail_out)
+                        if produced > 0 {
+                            guard output.count + produced <= maxDecompressedSize else {
+                                throw KdbxError.payloadCorrupted("decompressed contents are implausibly large")
+                            }
+                            output.append(contentsOf: chunk[0..<produced])
+                        }
+                        if result == Z_STREAM_END { return Z_STREAM_END }
+                        if result == Z_BUF_ERROR && produced == 0 { return Z_BUF_ERROR }
+                    default:
+                        return result
+                    }
                 }
             }
+        } catch {
+            SecureBytes.wipe(&output)   // a rejected bomb still holds plaintext
+            throw error
         }
 
         guard status == Z_STREAM_END else {

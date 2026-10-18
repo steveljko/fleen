@@ -30,6 +30,7 @@ final class SettingsWindowController: NSObject, NSWindowDelegate {
         window.title = "Fleen Settings"
         window.styleMask = [.titled, .closable]
         window.isReleasedWhenClosed = false
+        window.sharingType = .none
         window.delegate = self
         window.center()
         self.window = window
@@ -53,6 +54,7 @@ struct SettingsView: View {
     @State private var watchFile: Bool
     @State private var biometricEnabled: Bool
     @State private var promptOnOpen: Bool
+    @State private var allowLoginPassword: Bool
     @State private var quickCopy: Bool
     @State private var showRecycleBin: Bool
     @State private var browseMode: BrowseMode
@@ -66,12 +68,15 @@ struct SettingsView: View {
         _watchFile = State(initialValue: preferences.watchDatabaseFile)
         _biometricEnabled = State(initialValue: preferences.biometricUnlockEnabled)
         _promptOnOpen = State(initialValue: preferences.promptBiometricsOnOpen)
+        _allowLoginPassword = State(initialValue: preferences.allowDevicePasswordFallback)
         _quickCopy = State(initialValue: preferences.quickCopy)
         _showRecycleBin = State(initialValue: preferences.showRecycleBin)
         _browseMode = State(initialValue: preferences.browseMode)
     }
 
-    private var biometry: BiometricUnlock.Biometry { BiometricUnlock.availability() }
+    private var biometry: BiometricUnlock.Biometry {
+        BiometricUnlock.availability(allowDevicePassword: allowLoginPassword)
+    }
 
     var body: some View {
         TabView {
@@ -80,15 +85,14 @@ struct SettingsView: View {
             generalTab
                 .tabItem { Label("General", systemImage: "gearshape") }
         }
-        .frame(width: 440, height: 340)
-        .padding(.top, 8)
-
+        .frame(width: 420)
+        .fixedSize(horizontal: false, vertical: true)
     }
 
     private var securityTab: some View {
         Form {
-            Section {
-                Picker("Lock after inactivity:", selection: $idleMinutes) {
+            Section("Lock") {
+                Picker("Lock after inactivity", selection: $idleMinutes) {
                     Text("Never").tag(0)
                     Text("1 minute").tag(1)
                     Text("5 minutes").tag(5)
@@ -103,12 +107,10 @@ struct SettingsView: View {
 
                 Toggle("Lock when the Mac sleeps", isOn: $lockOnSleep)
                     .onChange(of: lockOnSleep) { _, value in preferences.lockOnSleep = value }
-            } header: {
-                Text("Auto-lock")
             }
 
-            Section {
-                Picker("Clear clipboard after:", selection: $clipboardSeconds) {
+            Section("Clipboard") {
+                Picker("Clear copied passwords after", selection: $clipboardSeconds) {
                     Text("Never").tag(0)
                     Text("10 seconds").tag(10)
                     Text("30 seconds").tag(30)
@@ -116,112 +118,79 @@ struct SettingsView: View {
                     Text("2 minutes").tag(120)
                 }
                 .onChange(of: clipboardSeconds) { _, value in preferences.clipboardClearSeconds = value }
-
-                Text("Copied passwords are marked so clipboard managers skip them.")
-                    .font(.caption)
-                    .foregroundStyle(Design.Palette.secondaryText)
-            } header: {
-                Text("Clipboard")
             }
 
-            Section {
-                if biometry.isAvailable {
-                    Toggle("Unlock with \(biometry.displayName)", isOn: $biometricEnabled)
-                        .onChange(of: biometricEnabled) { _, value in
-                            preferences.biometricUnlockEnabled = value
-                        }
-                    Text("Stores the derived key in the Keychain — never your master password. Unlocking still runs the full key derivation. If the sensor is unavailable — lid shut, external keyboard, no Touch ID on this Mac — the prompt offers your macOS login password instead, so you never have to fall back to typing the master password.")
-                        .font(.caption)
-                        .foregroundStyle(Design.Palette.secondaryText)
-
-                    Toggle("Ask on click, before the window opens", isOn: $promptOnOpen)
-                        .onChange(of: promptOnOpen) { _, value in
-                            preferences.promptBiometricsOnOpen = value
-                        }
-                        .disabled(!biometricEnabled)
-                    Text(biometricEnabled
-                         ? "Clicking the menu bar icon asks for \(biometry.displayName) straight away. The vault opens already unlocked; cancelling opens the lock screen instead."
-                         : "Turn on \(biometry.displayName) unlock first.")
-                        .font(.caption)
-                        .foregroundStyle(Design.Palette.secondaryText)
-
-                    Label(BiometricUnlock.availableProtectionLevel.isCryptographicallyBound
-                          ? "Enforced by the Keychain"
-                          : "Enforced by Fleen, not by macOS",
-                          systemImage: BiometricUnlock.availableProtectionLevel
-                              .isCryptographicallyBound
-                              ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                        .font(.caption)
-                        .foregroundStyle(BiometricUnlock.availableProtectionLevel
-                            .isCryptographicallyBound
-                            ? Design.Palette.success : Design.Palette.warning)
-
-                    Text(BiometricUnlock.availableProtectionLevel.explanation)
-                        .font(.caption)
-                        .foregroundStyle(Design.Palette.secondaryText)
-                } else if case .none(let reason) = biometry {
-                    Label(reason, systemImage: "info.circle")
-                        .font(.caption)
-                        .foregroundStyle(Design.Palette.secondaryText)
-                }
-            } header: {
-                Text("Biometrics")
-            }
+            biometricSection
         }
         .formStyle(.grouped)
     }
 
+    @ViewBuilder
+    private var biometricSection: some View {
+        if biometry.isAvailable {
+            Section {
+                Toggle("Unlock with \(biometry.displayName)", isOn: $biometricEnabled)
+                    .onChange(of: biometricEnabled) { _, value in
+                        preferences.biometricUnlockEnabled = value
+                        // Off means off: a key left in the Keychain still opens the vault.
+                        if !value { BiometricUnlock.removeAll() }
+                    }
+
+                if biometricEnabled {
+                    Toggle("Ask when the menu bar icon is clicked", isOn: $promptOnOpen)
+                        .onChange(of: promptOnOpen) { _, value in
+                            preferences.promptBiometricsOnOpen = value
+                        }
+
+                    Toggle("Also accept Mac login password", isOn: $allowLoginPassword)
+                        .onChange(of: allowLoginPassword) { _, value in
+                            preferences.allowDevicePasswordFallback = value
+                            // Part of the stored key's access control, so the key has to
+                            // go; the next master-password unlock saves it again.
+                            BiometricUnlock.removeAll()
+                        }
+                        .help("Changing this removes the saved key.")
+                }
+            } header: {
+                Text(biometry.displayName)
+            } footer: {
+                if biometricEnabled && allowLoginPassword {
+                    Text("Anyone who knows your Mac password can unlock the vault.")
+                        .foregroundStyle(Design.Palette.warning)
+                } else if !BiometricUnlock.availableProtectionLevel.isCryptographicallyBound {
+                    Text("Development build: the saved key is not protected by the Keychain.")
+                        .foregroundStyle(Design.Palette.warning)
+                }
+            }
+        } else if case .none(let reason) = biometry {
+            Section("Touch ID") {
+                Text(reason)
+                    .foregroundStyle(Design.Palette.secondaryText)
+            }
+        }
+    }
+
     private var generalTab: some View {
         Form {
-            Section {
-                Picker("Folders:", selection: $browseMode) {
+            Section("Browsing") {
+                Picker("Folders", selection: $browseMode) {
                     ForEach(BrowseMode.allCases, id: \.self) { mode in
                         Text(mode.displayName).tag(mode)
                     }
                 }
                 .onChange(of: browseMode) { _, value in preferences.browseMode = value }
 
-                Text(browseMode.explanation)
-                    .font(.caption)
-                    .foregroundStyle(Design.Palette.secondaryText)
-            } header: {
-                Text("Display")
-            }
-
-            Section {
-                Toggle("⌘-click an entry to copy from it", isOn: $quickCopy)
-                    .onChange(of: quickCopy) { _, value in preferences.quickCopy = value }
-                Text("Holding ⌘ and clicking an entry copies the first thing you need from it; ⌘-clicking again within \(Int(Preferences.quickCopyWindow)) seconds copies the next. A login gives its password, then its one-time code. A card gives its number, then the expiry, then the security code — mark it with a field called Type set to card. Steps an entry does not have are skipped. A plain click still opens the entry.")
-                    .font(.caption)
-                    .foregroundStyle(Design.Palette.secondaryText)
-            } header: {
-                Text("Quick copy")
-            }
-
-            Section {
                 Toggle("Show Recycle Bin", isOn: $showRecycleBin)
-                    .onChange(of: showRecycleBin) { _, value in
-                        preferences.showRecycleBin = value
-                    }
-                Text("Lists deleted entries when browsing and searching. They appear with a trash icon. Databases without a recycle bin are unaffected.")
-                    .font(.caption)
-                    .foregroundStyle(Design.Palette.secondaryText)
-
-                Toggle("Watch the database file for external changes", isOn: $watchFile)
-                    .onChange(of: watchFile) { _, value in preferences.watchDatabaseFile = value }
-                Text("Detects edits made by KeePassXC or a sync client and offers to reload.")
-                    .font(.caption)
-                    .foregroundStyle(Design.Palette.secondaryText)
-            } header: {
-                Text("Database")
+                    .onChange(of: showRecycleBin) { _, value in preferences.showRecycleBin = value }
             }
 
-            Section {
-                Text("Fleen reads and writes KeePass KDBX 4 databases entirely on this Mac. It makes no network connections.")
-                    .font(.caption)
-                    .foregroundStyle(Design.Palette.secondaryText)
-            } header: {
-                Text("About")
+            Section("Behavior") {
+                Toggle("⌘-click an entry to copy", isOn: $quickCopy)
+                    .onChange(of: quickCopy) { _, value in preferences.quickCopy = value }
+                    .help("Copies the password, then the one-time code. For cards: number, expiry, security code.")
+
+                Toggle("Offer to reload when the file changes", isOn: $watchFile)
+                    .onChange(of: watchFile) { _, value in preferences.watchDatabaseFile = value }
             }
         }
         .formStyle(.grouped)

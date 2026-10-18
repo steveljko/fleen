@@ -30,7 +30,9 @@ struct UnlockView: View {
     private enum Field: Hashable { case password, unlock }
     @FocusState private var focus: Field?
 
-    private var biometry: BiometricUnlock.Biometry { BiometricUnlock.availability() }
+    private var biometry: BiometricUnlock.Biometry {
+        BiometricUnlock.availability(allowDevicePassword: preferences.allowDevicePasswordFallback)
+    }
 
     private var databaseName: String {
         session.databaseURL?.deletingPathExtension().lastPathComponent ?? "Fleen"

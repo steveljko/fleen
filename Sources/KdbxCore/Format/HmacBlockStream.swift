@@ -33,7 +33,7 @@ enum HmacBlockStream {
 
             let key = schedule.blockKey(index: index)
             var mac = key.withUnsafeBytes {
-                HMAC<SHA256>(key: SymmetricKey(data: Data($0)))
+                HMAC<SHA256>(key: SymmetricKey(data: $0))
             }
             withUnsafeBytes(of: index.littleEndian) { mac.update(data: Data($0)) }
             withUnsafeBytes(of: blockSize.littleEndian) { mac.update(data: Data($0)) }
@@ -58,7 +58,7 @@ enum HmacBlockStream {
     static func headerMac(header: Data, schedule: KeySchedule) -> [UInt8] {
         let key = schedule.blockKey(index: KeySchedule.headerBlockIndex)
         let mac = key.withUnsafeBytes {
-            HMAC<SHA256>.authenticationCode(for: header, using: SymmetricKey(data: Data($0)))
+            HMAC<SHA256>.authenticationCode(for: header, using: SymmetricKey(data: $0))
         }
         return Array(mac)
     }

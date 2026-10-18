@@ -32,8 +32,8 @@ public struct CompositeKey: Sendable {
     }
 
     public mutating func addPassword(_ password: SecureBytes) {
-        let digest = password.withUnsafeBytes { SHA256.hash(data: Data($0)) }
-        components.append(SecureBytes(Array(digest)))
+        let digest = password.withUnsafeBytes { SHA256.hash(data: $0) }
+        components.append(SecureBytes(contiguous: digest))
     }
 
     public mutating func addPassword(_ password: String) {
@@ -46,8 +46,18 @@ public struct CompositeKey: Sendable {
         components.append(try Self.keyFileKey(from: data))
     }
 
+    /// Above this, a key file can only be format 4 (hash of the whole file), so it is
+    /// hashed in chunks rather than read whole. Choosing a multi-gigabyte file used to
+    /// load all of it into memory first.
+    static let streamingThreshold = 1 << 20
+
     public mutating func addKeyFile(url: URL) throws {
         do {
+            let size = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
+            if size > Self.streamingThreshold {
+                components.append(try Self.hashKeyFile(at: url))
+                return
+            }
             try addKeyFile(data: Data(contentsOf: url))
         } catch let error as KdbxError {
             throw error
@@ -81,7 +91,17 @@ public struct CompositeKey: Sendable {
         }
 
         // 4. Anything else: SHA-256 of the whole file.
-        return SecureBytes(Array(SHA256.hash(data: data)))
+        return SecureBytes(contiguous: SHA256.hash(data: data))
+    }
+
+    static func hashKeyFile(at url: URL) throws -> SecureBytes {
+        let handle = try FileHandle(forReadingFrom: url)
+        defer { try? handle.close() }
+        var hasher = SHA256()
+        while let chunk = try handle.read(upToCount: 1 << 20), !chunk.isEmpty {
+            hasher.update(data: chunk)
+        }
+        return SecureBytes(contiguous: hasher.finalize())
     }
 
     private static func hexDecode(_ string: String) -> [UInt8]? {
@@ -115,12 +135,15 @@ public struct CompositeKey: Sendable {
     /// only an *input* to the KDF — holding it does not shortcut Argon2, and it is
     /// not the user's password, so it cannot be tried against their other accounts.
     public func rawKey() -> SecureBytes {
-        if let finishedKey { return finishedKey }
+        // A copy, never the stored key itself: the caller hands this to Argon2, which
+        // zeroes the password it is given. Returning `finishedKey` directly meant a
+        // Touch ID unlock destroyed the key kept for Reload, which then always failed.
+        if let finishedKey { return finishedKey.copy() }
         var hasher = SHA256()
         for component in components {
-            component.withUnsafeBytes { hasher.update(data: Data($0)) }
+            component.withUnsafeBytes { hasher.update(bufferPointer: $0) }
         }
-        return SecureBytes(Array(hasher.finalize()))
+        return SecureBytes(contiguous: hasher.finalize())
     }
 }
 

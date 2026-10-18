@@ -227,13 +227,15 @@ struct KdbxHeader {
 
             // Bound the cost before allocating: a hostile file could otherwise ask
             // for terabytes of memory and take the process down on open.
-            guard memoryKiB >= 8, memoryKiB <= 4 * 1024 * 1024 else {
+            // The same ceilings `Argon2.hash` enforces, so a hostile header is refused
+            // here with a clear message rather than one layer down.
+            guard memoryKiB >= 8, memoryKiB <= UInt64(Argon2.maximumMemoryKiB) else {
                 throw KdbxError.malformedHeader("Argon2 memory parameter out of range (\(memoryKiB) KiB)")
             }
-            guard iterations >= 1, iterations <= 1 << 24 else {
+            guard iterations >= 1, iterations <= UInt64(Argon2.maximumIterations) else {
                 throw KdbxError.malformedHeader("Argon2 iteration count out of range (\(iterations))")
             }
-            guard parallelism >= 1, parallelism <= 1 << 12 else {
+            guard parallelism >= 1, parallelism <= Argon2.maximumParallelism else {
                 throw KdbxError.malformedHeader("Argon2 parallelism out of range (\(parallelism))")
             }
 

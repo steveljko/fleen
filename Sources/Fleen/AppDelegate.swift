@@ -33,6 +33,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         diag("didFinishLaunching entered; log at \(Diagnostics.fileURL?.path ?? "?")")
+        // Earlier builds could leave the composite key in the legacy keychain with no
+        // OS-level gate. A release build never reads such an item; remove it.
+        BiometricUnlock.purgeUnprotectedKeys()
         // Menu bar utility: no Dock icon, no menu bar app menu, unless asked for.
         enforceActivationPolicy(reason: "launch")
 
@@ -85,7 +88,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         })
 
         autoLock.start { [weak self] reason in
-            guard let self, self.session.state.isUnlocked else { return }
+            // Also while unlocking: the session discards a KDF result that finishes
+            // after a lock, so locking mid-unlock is what keeps the vault shut.
+            guard let self, self.session.state.isUnlocked || self.session.state.isBusy
+            else { return }
             self.presentation.suppressBiometricPrompt()
             self.session.lock(reason: reason)
             self.popover?.performClose(nil)
@@ -269,6 +275,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         // has to be right on the way in, not corrected afterwards.
         enforceActivationPolicy(reason: "openPopover")
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+        // Keep revealed passwords and one-time codes out of screenshots, screen
+        // recordings and screen sharing. The window only exists once shown.
+        popover.contentViewController?.view.window?.sharingType = .none
         // Without this the popover's text fields cannot take key input, because an
         // accessory-policy app is not active by default.
         NSApp.activate(ignoringOtherApps: true)

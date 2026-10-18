@@ -84,6 +84,15 @@ public final class VaultSession {
     /// "authentication failed" when the auto-prompt and a button tap overlapped.
     private var isAuthenticating = false
 
+    /// Bumped by every `lock()` (and so by every `select`). An unlock or reload captures
+    /// it before the slow KDF and discards its result if it changed in the meantime.
+    ///
+    /// Without this, a lock requested while the key was still being derived — ⌘L, the
+    /// screen locking, the lid closing — was silently undone a moment later when the
+    /// KDF finished and `adopt` installed the decrypted database anyway. Switching to
+    /// another database mid-unlock likewise showed the new name over the old contents.
+    private var unlockGeneration = 0
+
     private var defaultsObserver: (any NSObjectProtocol)?
 
     public init(preferences: Preferences = .shared) {
@@ -150,7 +159,8 @@ public final class VaultSession {
 
     public var canUnlockWithBiometrics: Bool {
         guard preferences.biometricUnlockEnabled,
-              BiometricUnlock.availability().isAvailable,
+              BiometricUnlock.availability(
+                  allowDevicePassword: preferences.allowDevicePasswordFallback).isAvailable,
               let account = biometricAccount else { return false }
         return BiometricUnlock.hasEnrolledKey(account: account)
     }
@@ -231,7 +241,8 @@ public final class VaultSession {
         do {
             stored = try await BiometricUnlock.retrieve(
                 account: account,
-                reason: "unlock your Fleen vault")
+                reason: "unlock your Fleen vault",
+                allowDevicePassword: preferences.allowDevicePasswordFallback)
         } catch BiometricUnlock.Failure.userCancelled {
             // Not an error; the user backed out. Remember it so the next time they open
             // the popover it waits to be asked rather than asking again.
@@ -258,6 +269,7 @@ public final class VaultSession {
         }
 
         state = .unlocking
+        let generation = unlockGeneration
 
         let opened: Result<Database, Error> = await Task.detached(priority: .userInitiated) {
             // The expensive work, off the main actor. `Database` and `CompositeKey`
@@ -266,13 +278,17 @@ public final class VaultSession {
             catch { return .failure(error) }
         }.value
 
+        // Locked or switched while the KDF ran: this result belongs to nobody now.
+        guard generation == unlockGeneration, url == databaseURL else { return }
+
         switch opened {
         case .success(let database):
             adopt(database, credentials: key)
             if enrollBiometrics, let account = biometricAccount {
                 do {
-                    try BiometricUnlock.enroll(compositeKey: key.rawKey(),
-                                               account: account)
+                    try BiometricUnlock.enroll(
+                        compositeKey: key.rawKey(), account: account,
+                        allowDevicePassword: preferences.allowDevicePasswordFallback)
                     preferences.biometricUnlockEnabled = true
 
                     // Verify it actually persisted. This check needs no biometric
@@ -311,6 +327,7 @@ public final class VaultSession {
 
     /// Drops every decrypted byte we hold.
     public func lock(reason: AutoLockController.Reason = .manual) {
+        unlockGeneration &+= 1
         database = nil
         credentials = nil
         index = SearchIndex()
@@ -349,11 +366,14 @@ public final class VaultSession {
         self.info = info
 
         state = .unlocking
+        let generation = unlockGeneration
 
         let opened: Result<Database, Error> = await Task.detached(priority: .userInitiated) {
             do { return .success(try KdbxFile.open(url: url, credentials: credentials)) }
             catch { return .failure(error) }
         }.value
+
+        guard generation == unlockGeneration, url == databaseURL else { return }
 
         switch opened {
         case .success(let database): adopt(database, credentials: credentials)

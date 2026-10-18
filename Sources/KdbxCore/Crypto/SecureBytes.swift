@@ -23,8 +23,9 @@ public final class SecureBytes: @unchecked Sendable {
     public init(count: Int) {
         precondition(count >= 0)
         self.count = count
-        // A page-aligned allocation we own outright, so `wipe()` on deinit is
-        // guaranteed to hit the same memory the key was written into.
+        // An allocation we own outright, so the wipe on deinit is guaranteed to hit the
+        // same memory the key was written into. Not page-aligned: several buffers can
+        // share a page, which is why pinning below is reference-counted per page.
         self.storage = UnsafeMutableRawPointer.allocate(
             byteCount: max(count, 1), alignment: 16)
         self.storage.initializeMemory(as: UInt8.self, repeating: 0, count: max(count, 1))
@@ -35,7 +36,25 @@ public final class SecureBytes: @unchecked Sendable {
         // default, which narrows the exposure but does not remove it: the swap key
         // lives for the boot, so a hibernation image or a live-memory capture still
         // contains the plaintext.
-        self.isLocked = mlock(self.storage, max(count, 1)) == 0
+        self.isLocked = PagePins.pin(self.storage, max(count, 1))
+    }
+
+    /// Copies a CryptoKit digest (or any contiguous bytes) straight into a new buffer,
+    /// without the `[UInt8]` temporary that `SecureBytes(Array(digest))` leaves behind.
+    public convenience init<Bytes: ContiguousBytes>(contiguous bytes: Bytes) {
+        let count = bytes.withUnsafeBytes { $0.count }
+        self.init(count: count)
+        bytes.withUnsafeBytes { src in
+            if let base = src.baseAddress { storage.copyMemory(from: base, byteCount: count) }
+        }
+    }
+
+    /// An independent copy, for a caller that must hand bytes to something that will
+    /// destroy them (Argon2 zeroes the password it is given) while keeping its own.
+    public func copy() -> SecureBytes {
+        let duplicate = SecureBytes(count: count)
+        duplicate.storage.copyMemory(from: storage, byteCount: count)
+        return duplicate
     }
 
     public convenience init(_ bytes: [UInt8]) {
@@ -65,11 +84,14 @@ public final class SecureBytes: @unchecked Sendable {
 
     deinit {
         memset_s(storage, count, 0, count)
-        // Unlock only after zeroing: unlocking first would allow the pages to be paged
+        // Unpin only after zeroing: unpinning first would allow the pages to be paged
         // out in the window before the wipe, which is the exact thing being prevented.
-        if isLocked { munlock(storage, max(count, 1)) }
+        if isLocked { PagePins.unpin(storage, max(count, 1)) }
         storage.deallocate()
     }
+
+    /// Where the bytes live, for tests that check page pinning.
+    var baseAddress: UInt { UInt(bitPattern: storage) }
 
     /// Whether this buffer is pinned in physical memory, for diagnostics and tests.
     public var isMemoryLocked: Bool { isLocked }
@@ -151,4 +173,58 @@ public func timingSafeCompare(_ a: UnsafeRawBufferPointer, _ b: UnsafeRawBufferP
 @inlinable
 public func timingSafeCompare(_ a: [UInt8], _ b: [UInt8]) -> Bool {
     a.withUnsafeBytes { ab in b.withUnsafeBytes { bb in timingSafeCompare(ab, bb) } }
+}
+
+/// Reference-counted `mlock`.
+///
+/// `mlock` is not counted by the kernel: one `munlock` unpins a page however many
+/// buffers on it still need pinning. Small `SecureBytes` share pages, so the first one
+/// to deinitialise used to unpin its neighbours and leave live key material pageable.
+enum PagePins {
+    nonisolated(unsafe) static var counts: [UInt: Int] = [:]
+    static let lock = NSLock()
+    static let pageSize = UInt(getpagesize())
+
+    private static func pages(_ start: UnsafeMutableRawPointer, _ count: Int) -> [UInt] {
+        let first = UInt(bitPattern: start) & ~(pageSize - 1)
+        let end = UInt(bitPattern: start) + UInt(count)
+        return Array(stride(from: first, to: end, by: Int(pageSize)))
+    }
+
+    /// Pins every page under the range. All or nothing: a failure undoes this call's pins.
+    static func pin(_ start: UnsafeMutableRawPointer, _ count: Int) -> Bool {
+        lock.lock(); defer { lock.unlock() }
+        var pinned: [UInt] = []
+        for page in pages(start, count) {
+            if counts[page, default: 0] == 0,
+               mlock(UnsafeRawPointer(bitPattern: page), Int(pageSize)) != 0 {
+                for done in pinned { release(done) }
+                return false
+            }
+            counts[page, default: 0] += 1
+            pinned.append(page)
+        }
+        return true
+    }
+
+    /// How many live buffers hold the page containing `address`. For tests.
+    static func pinCount(containing address: UInt) -> Int {
+        lock.lock(); defer { lock.unlock() }
+        return counts[address & ~(pageSize - 1)] ?? 0
+    }
+
+    static func unpin(_ start: UnsafeMutableRawPointer, _ count: Int) {
+        lock.lock(); defer { lock.unlock() }
+        for page in pages(start, count) { release(page) }
+    }
+
+    private static func release(_ page: UInt) {
+        guard let current = counts[page] else { return }
+        if current <= 1 {
+            counts[page] = nil
+            munlock(UnsafeRawPointer(bitPattern: page), Int(pageSize))
+        } else {
+            counts[page] = current - 1
+        }
+    }
 }

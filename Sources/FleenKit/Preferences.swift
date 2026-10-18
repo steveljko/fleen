@@ -47,6 +47,8 @@ public final class Preferences: @unchecked Sendable {
             // Off by default: a fingerprint prompt appearing from a single click, with
             // no window to explain itself, should be something the user opted into.
             Key.promptBiometricsOnOpen: false,
+            // Off by default: with it on, the macOS login password alone opens the vault.
+            Key.allowDevicePasswordFallback: false,
             // On by default: it lives on ⌘-click, so it takes nothing away from a
             // plain click and there is no mode to be surprised by.
             Key.quickCopy: true,
@@ -66,6 +68,7 @@ public final class Preferences: @unchecked Sendable {
         static let lockOnSleep = "lockOnSleep"
         static let biometricUnlockEnabled = "biometricUnlockEnabled"
         static let promptBiometricsOnOpen = "promptBiometricsOnOpen"
+        static let allowDevicePasswordFallback = "allowDevicePasswordFallback"
         static let quickCopy = "quickCopy"
         static let showInDock = "showInDock"
         static let watchDatabaseFile = "watchDatabaseFile"
@@ -110,6 +113,15 @@ public final class Preferences: @unchecked Sendable {
     public var promptBiometricsOnOpen: Bool {
         get { defaults.bool(forKey: Key.promptBiometricsOnOpen) }
         set { defaults.set(newValue, forKey: Key.promptBiometricsOnOpen) }
+    }
+
+    /// Whether the Touch ID prompt also accepts the Mac's login password.
+    ///
+    /// Baked into the keychain item's access control when it is enrolled, so changing
+    /// it means removing the stored keys and enrolling again.
+    public var allowDevicePasswordFallback: Bool {
+        get { defaults.bool(forKey: Key.allowDevicePasswordFallback) }
+        set { defaults.set(newValue, forKey: Key.allowDevicePasswordFallback) }
     }
 
     /// Whether ⌘-clicking an entry walks its copy sequence — password then one-time

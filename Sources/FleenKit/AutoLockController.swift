@@ -11,6 +11,10 @@ import AppKit
 ///   to have focus. It also needs no Accessibility permission, unlike an event tap.
 /// * **Screen lock** — a distributed notification, the only public signal for it.
 /// * **Sleep** — `NSWorkspace.willSleepNotification`.
+/// * **Switching user** — `NSWorkspace.sessionDidResignActiveNotification`. Fast user
+///   switching does not lock the screen, so without this the vault stayed open in the
+///   background session until the idle timer caught it. Not switchable: there is no
+///   reason to keep a vault open in a session nobody is sitting at.
 @MainActor
 public final class AutoLockController {
 
@@ -18,6 +22,7 @@ public final class AutoLockController {
         case idleTimeout(minutes: Int)
         case screenLocked
         case systemSleep
+        case userSwitched
         case manual
 
         public var explanation: String {
@@ -26,6 +31,7 @@ public final class AutoLockController {
                 return "Locked after \(minutes) minute\(minutes == 1 ? "" : "s") of inactivity."
             case .screenLocked: return "Locked because the screen was locked."
             case .systemSleep:  return "Locked because the Mac went to sleep."
+            case .userSwitched: return "Locked because you switched to another user."
             case .manual:       return ""
             }
         }
@@ -71,6 +77,12 @@ public final class AutoLockController {
                 guard let self, self.preferences.lockOnSleep else { return }
                 self.onLock?(.systemSleep)
             }
+        })
+
+        workspaceObservers.append(workspace.addObserver(
+            forName: NSWorkspace.sessionDidResignActiveNotification, object: nil, queue: .main
+        ) { [weak self] _ in
+            MainActor.assumeIsolated { self?.onLock?(.userSwitched) }
         })
 
         distributedObservers.append(DistributedNotificationCenter.default().addObserver(

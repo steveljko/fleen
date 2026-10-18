@@ -91,22 +91,38 @@ final class InnerStreamCipher {
             throw KdbxError.malformedHeader("ARC4 protected values are not supported")
         case .salsa20:
             // Salsa20 key is SHA-256 of the stream key; nonce is fixed by the format.
-            let key = header.streamKey.withUnsafeBytes { buf -> [UInt8] in
+            var key = header.streamKey.withUnsafeBytes { buf -> [UInt8] in
                 var hasher = SHA256Wrapper()
                 hasher.update(buf)
                 return hasher.finalize()
             }
+            defer { SecureBytes.wipe(&key) }
             engine = .salsa20(Salsa20(key: key, nonce: Salsa20.kdbxNonce))
         case .chacha20:
             // ChaCha20 key/nonce are the first 32 and next 12 bytes of SHA-512(streamKey).
-            let digest = header.streamKey.withUnsafeBytes { buf -> [UInt8] in
+            var digest = header.streamKey.withUnsafeBytes { buf -> [UInt8] in
                 var hasher = SHA512Wrapper()
                 hasher.update(buf)
                 return hasher.finalize()
             }
-            let key = SecureBytes(Array(digest[0..<32]))
+            defer { SecureBytes.wipe(&digest) }
+            let key = SecureBytes(count: 32)
+            key.withUnsafeMutableBytes { dst in
+                digest.withUnsafeBytes { dst.copyMemory(from: UnsafeRawBufferPointer(rebasing: $0[0..<32])) }
+            }
             let nonce = Array(digest[32..<44])
             engine = key.withUnsafeBytes { .chacha20(ChaCha20(key: $0, nonce: nonce)) }
+        }
+    }
+
+    // In both methods below `engine` is cleared *before* the cipher is mutated. While
+    // the enum still holds it, the bound copy shares its arrays, so mutating would copy
+    // them first — leaving the key-bearing originals unwiped on the heap.
+    deinit {
+        switch engine {
+        case .none: break
+        case .salsa20(var s): engine = .none; s.wipe()
+        case .chacha20(var c): engine = .none; c.wipe()
         }
     }
 
@@ -115,9 +131,11 @@ final class InnerStreamCipher {
         case .none:
             break
         case .salsa20(var s):
+            engine = .none
             s.process(&bytes)
             engine = .salsa20(s)
         case .chacha20(var c):
+            engine = .none
             c.process(&bytes)
             engine = .chacha20(c)
         }

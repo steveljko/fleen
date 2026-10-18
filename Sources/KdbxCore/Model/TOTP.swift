@@ -69,8 +69,11 @@ public struct TOTP: Sendable, Equatable {
             | (UInt32(mac[offset + 2]) << 8)
             | UInt32(mac[offset + 3])
 
-        let modulus = UInt32(pow(10, Double(digits)))
-        return String(format: "%0\(digits)u", binary % modulus)
+        // 64-bit: `digits` may be 10, and 10^10 does not fit in a UInt32 — converting it
+        // trapped, crashing the app the moment such an entry was opened.
+        var modulus: UInt64 = 1
+        for _ in 0..<digits { modulus *= 10 }
+        return String(format: "%0\(digits)llu", UInt64(binary) % modulus)
     }
 
     /// Seconds until the current code expires.
