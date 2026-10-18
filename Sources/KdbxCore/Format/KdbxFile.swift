@@ -70,14 +70,12 @@ public enum KdbxFile {
         //    sharing `payload`'s buffer. They must be released before the deferred wipe
         //    runs, or the wipe hits a copy and the decrypted XML survives in memory.
         //
-        //    A Swift scope alone is not enough: `XMLParser` retains the `Data` it is
-        //    given and is autoreleased, so it — and the payload buffer with it — outlives
-        //    the scope until the pool drains, which by default is long after the wipe.
-        //    Hence an explicit `autoreleasepool`. Verified, not assumed: without it the
-        //    debug check in `SecureBytes.wipe` traps on every fixture.
+        //    The XML is tokenised in place over that same buffer (`KdbxXmlTokenizer`),
+        //    so no other copy of it exists to outlive the wipe. `XMLParser` used to be
+        //    here; libxml2 kept an unwipeable copy of the whole document after lock.
         typealias ParsedTree = (meta: DatabaseMeta, root: Group,
                                 deleted: [(uuid: UUID, deletionTime: Date)])
-        let (parsed, pool): (ParsedTree, [Int: Attachment]) = try autoreleasepool {
+        let (parsed, pool): (ParsedTree, [Int: Attachment]) = try {
             var payloadReader = ByteReader(payload)
             let innerHeader = try KdbxInnerHeader.parse(&payloadReader)
             let xml = payloadReader.readRest()
@@ -89,7 +87,7 @@ public enum KdbxFile {
             var pool: [Int: Attachment] = [:]
             for (index, binary) in innerHeader.binaries.enumerated() { pool[index] = binary }
             return (tree, pool)
-        }
+        }()
 
         return Database(
             meta: parsed.meta,
@@ -122,6 +120,7 @@ public enum KdbxFile {
             var cipher = schedule.cipherKey.withUnsafeBytes {
                 ChaCha20(key: $0, nonce: header.encryptionIV, counter: 0)
             }
+            defer { cipher.wipe() }
             return cipher.process(ciphertext)
         }
     }

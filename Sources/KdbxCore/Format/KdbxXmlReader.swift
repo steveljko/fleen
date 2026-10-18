@@ -2,18 +2,21 @@ import Foundation
 
 /// Streaming XML → model parser.
 ///
-/// Uses `XMLParser` (libxml2 under the hood) rather than `XMLDocument` on purpose:
-/// `XMLDocument` would materialise a full DOM holding every decrypted password as an
-/// NSString, giving us a second copy of every secret with no way to wipe it. The SAX
-/// approach builds the canonical model directly and never retains a parallel tree.
-final class KdbxXmlReader: NSObject, XMLParserDelegate {
+/// Event-driven, so no parallel tree of decrypted values ever exists, and fed by
+/// `KdbxXmlTokenizer` rather than `XMLParser`: libxml2 kept its own unwipeable copy of
+/// the decrypted XML alive after the vault locked (see the tokenizer for details).
+final class KdbxXmlReader: KdbxXmlHandler {
+
+    /// Deeper than any real folder tree. `Group`s nest by value and are walked
+    /// recursively (search index, tree views, deallocation), so an attacker-supplied
+    /// depth in the tens of thousands overflowed the stack and crashed the app.
+    static let maximumGroupDepth = 512
     private let innerStream: InnerStreamCipher
     private let binaries: [Attachment]
 
     private var meta = DatabaseMeta()
     private var rootGroup = Group(name: "Root")
     private var deletedObjects: [(uuid: UUID, deletionTime: Date)] = []
-    private var parseError: Error?
 
     /// Element path, so handlers can tell `<Times><LastModificationTime>` inside an
     /// entry from the identically-named element inside a group.
@@ -44,34 +47,29 @@ final class KdbxXmlReader: NSObject, XMLParserDelegate {
 
     func parse(_ data: Data) throws -> (meta: DatabaseMeta, root: Group,
                                         deleted: [(uuid: UUID, deletionTime: Date)]) {
-        let parser = XMLParser(data: data)
-        parser.delegate = self
-        parser.shouldProcessNamespaces = false
-        // External entity resolution stays off: a KDBX payload is untrusted input and
-        // XXE against the local filesystem would be a real hole in a password manager.
-        parser.shouldResolveExternalEntities = false
-
-        guard parser.parse() else {
-            if let parseError { throw parseError }
-            let detail = parser.parserError?.localizedDescription ?? "unknown XML error"
-            throw KdbxError.malformedXML(detail)
-        }
-        if let parseError { throw parseError }
+        try KdbxXmlTokenizer.parse(data, handler: self)
         return (meta, rootGroup, deletedObjects)
     }
 
-    // MARK: - XMLParserDelegate
+    // MARK: - KdbxXmlHandler
 
-    func parser(_ parser: XMLParser, didStartElement elementName: String,
-                namespaceURI: String?, qualifiedName qName: String?,
-                attributes attributeDict: [String: String] = [:]) {
+    func startElement(_ elementName: String, attributes attributeDict: [String: String]) throws {
         path.append(elementName)
         text = ""
 
         switch elementName {
         case "Group":
+            guard groupStack.count < Self.maximumGroupDepth else {
+                throw KdbxError.malformedXML("folders are nested more than \(Self.maximumGroupDepth) deep")
+            }
             groupStack.append(Group())
         case "Entry":
+            // A history entry is a snapshot and has no history of its own. Nesting them
+            // builds an `Entry.history` chain that is released recursively — tens of
+            // thousands deep, that overflowed the stack when the vault locked.
+            guard entryStack.count < 2 else {
+                throw KdbxError.malformedXML("entry history is nested inside entry history")
+            }
             entryStack.append(Entry())
         case "History":
             inHistory += 1
@@ -98,27 +96,16 @@ final class KdbxXmlReader: NSObject, XMLParserDelegate {
         }
     }
 
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
+    func characters(_ string: String) {
         text += string
     }
 
-    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
-        text += String(decoding: CDATABlock, as: UTF8.self)
-    }
-
-    func parser(_ parser: XMLParser, didEndElement elementName: String,
-                namespaceURI: String?, qualifiedName qName: String?) {
+    func endElement(_ elementName: String) throws {
         defer {
             path.removeLast()
             text = ""
         }
-
-        do {
-            try handleEndElement(elementName)
-        } catch {
-            parseError = error
-            parser.abortParsing()
-        }
+        try handleEndElement(elementName)
     }
 
     private func handleEndElement(_ elementName: String) throws {
