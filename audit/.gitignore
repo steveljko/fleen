@@ -1,0 +1,4 @@
+out/
+.venv/
+.build/
+specs/canary-*-*.json

@@ -1,0 +1,1 @@
+{"password":"correct horse battery staple","kdf":{"type":"argon2id","m":134217728,"i":8,"p":2},"entries":[{"fields":{"Title":"Slow Entry","UserName":"u"},"protected":{"Password":"p"}}]}

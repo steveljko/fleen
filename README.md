@@ -45,8 +45,8 @@ fleen/
 │   ├── Fleen/                  ── Phase 2 ── the menu bar app (SwiftUI + AppKit)
 │   └── fleen-cli/              Headless harness for testing the engine
 └── Tests/
-    ├── KdbxCoreTests/          79 tests, incl. real fixtures + KeePassXC interop
-    └── FleenKitTests/          80 tests
+    ├── KdbxCoreTests/          real fixtures, KeePassXC interop, fuzzing, audit regressions
+    └── FleenKitTests/          session, clipboard, Touch ID, audit regressions
 ```
 
 Fleen is a **single bundle**: one binary, no extensions, no helper processes. The
@@ -59,7 +59,7 @@ and from `fleen-cli`.
 ### Run the tests
 
 ```bash
-swift test                 # 159 tests
+swift test                 # 252 tests
 ```
 
 The KeePassXC interop suite skips itself if the reference app is absent. To include it:
@@ -371,13 +371,22 @@ Audited deliberately, because "keys are in `SecureBytes`" is not the whole answe
 custom fields) is decrypted straight from the inner stream into `SecureBytes` and never
 becomes a `String` unless something calls `reveal()`. `lock()` drops the database, the
 credentials and the index in one operation, so every `SecureBytes` deinitialises and
-`memset_s` runs. The XML parser is SAX rather than DOM specifically so no parallel tree
-of secrets exists.
+`memset_s` runs. The XML is read by an event-driven tokenizer (`KdbxXmlTokenizer`),
+so no parallel tree of secrets exists.
 
 **What the decrypted payload buffer does *not* contain.** Protected values are stored in
 the XML as base64 of inner-stream *ciphertext*, so the decrypted payload holds no
 plaintext passwords — it holds titles, usernames, URLs and notes. That is still worth
 zeroing (notes hold secrets in practice), and it is zeroed.
+
+**Why the XML is not parsed by `XMLParser`.** The security audit (`SECURITY_AUDIT.md`,
+F-06) found that Foundation's `XMLParser` hands the document to libxml2, which keeps a
+copy of its own — the whole decrypted XML, every title, username, URL and note — still in
+memory after the vault locked, where nothing Fleen controls can reach it. Fleen therefore
+tokenises the XML itself, in place, over the one buffer it wipes. The KDBX subset is
+small (no DTDs — those are refused outright, which also rules out external entities and
+entity bombs), and a canary scan in `audit/` confirms nothing of the payload survives a
+lock.
 
 **The copy-on-write trap, found by auditing rather than by reasoning.** `Data` is
 copy-on-write, and `SecureBytes.wipe` writes through `withUnsafeMutableBytes`. If any
@@ -387,9 +396,11 @@ about the call site looks wrong. Two ways it bit here:
 
 1. `ByteReader` holds a `Data` and `readRest()` returns a *slice* of it, so both shared
    the payload buffer.
-2. More subtly, `XMLParser` **retains the `Data` it is given** and is autoreleased, so
-   it outlived an ordinary Swift scope and kept the buffer shared past the wipe. A plain
-   `do { }` block does not fix this; an explicit `autoreleasepool` does.
+2. More subtly, `XMLParser` **retained the `Data` it was given** and was autoreleased, so
+   it outlived an ordinary Swift scope and kept the buffer shared past the wipe. (Moot
+   now that `XMLParser` is gone, but the reason the parse runs in its own scope.)
+3. `Gzip.decompress` did `var input = input` and then took mutable access, which copied
+   the whole compressed plaintext while the caller still held it. It now reads in place.
 
 `SecureBytes.wipe` now verifies this instead of trusting it: in debug builds it compares
 the buffer address across the write and traps if it moved, naming the offending call
@@ -420,7 +431,9 @@ All MAC and hash comparisons are constant-time.
 **Untrusted input, and what fuzzing found.** A `.kdbx` may be attacker-controlled —
 PLAN.md's threat model assumes it syncs through a third party, and a shared vault is a
 file someone else made. Every read is bounds-checked, gzip output is capped against
-decompression bombs, and XML external entity resolution is off.
+decompression bombs, document type declarations are refused (so there are no entities to
+expand or resolve), and folder nesting is capped — a file with tens of thousands of nested
+folders used to overflow the stack.
 
 The claim that "Argon2 cost parameters are range-checked" used to appear here, and it was
 **false**: only the lower bounds were checked. Fuzzing found three bugs behind it, all
@@ -469,24 +482,26 @@ The screen shows only that bar and the word "Unlocking…" — no duration, no a
 name. The honesty is in how the bar behaves, not in making the user read about key
 derivation.
 
-**When the sensor is unreachable, the Mac's password stands in.** Fleen asks for
-`LAPolicy.deviceOwnerAuthentication` rather than `…WithBiometrics`, and the Keychain item
-is created with `[.biometryCurrentSet, .or, .devicePasscode]`. So a Mac with the lid shut,
-an external keyboard, or no Touch ID hardware at all still unlocks from the same prompt —
-by macOS login password instead of a fingerprint. Both proofs are OS-enforced and
-Secure Enclave-backed, so this adds no new secret to steal and nothing new to brute-force.
+**The Mac's login password can stand in for the sensor — if you opt in.** Settings ›
+Security › *Also accept my Mac login password* switches the prompt to
+`LAPolicy.deviceOwnerAuthentication` and the Keychain item to
+`[.biometryCurrentSet, .or, .devicePasscode]`, so a Mac with the lid shut, an external
+keyboard, or no Touch ID still unlocks. It is **off by default**, because with it on the
+login password alone opens the vault — and the login password is typed far more often,
+in front of more people, than the master password. Off, the item is
+`[.biometryCurrentSet]` only. Changing the setting removes the saved key, since the
+choice is baked into the item's access control.
 
 > Why not an app PIN? A short PIN has to be stored somewhere Fleen can check it, which
 > means anyone able to read that store can guess it offline at whatever rate their
 > hardware allows — six digits is hours, four is minutes. The login password is a
-> credential macOS already holds, already rate-limits and already treats as equivalent to
-> the sensor, so it buys the same convenience without inventing a weaker key to the vault.
-> `.biometryCurrentSet` is kept rather than relaxed to `.userPresence`, so enrolling a new
-> fingerprint still invalidates the stored key; `.or .devicePasscode` adds the fallback
-> without giving that property up.
+> credential macOS already holds and already rate-limits, so for someone who wants the
+> fallback it is the better of the two — but it is still a second way in, which is why
+> it is a choice rather than a default.
 
 **Touch ID stores the composite key, never the password.** The Keychain item is
 protected with `.biometryCurrentSet`, so enrolling a new fingerprint invalidates it.
+Turning Touch ID off in Settings deletes the stored key.
 Unlocking with biometrics still runs the full KDF — Touch ID replaces *typing*, not
 key derivation, so enabling it doesn't make the vault cheaper to attack offline. The
 stored key derives byte-identically to the typed password, which
@@ -511,12 +526,19 @@ stored key derives byte-identically to the typed password, which
 > across rebuilds.
 
 **Auto-lock** on idle (system-wide input idleness, needing no Accessibility
-permission), screen lock, and sleep — each switchable, and the lock screen explains
-which one fired.
+permission), screen lock, and sleep — each switchable — and always on switching to
+another user. The lock screen explains which one fired. A lock requested while the key
+is still being derived wins: the finished derivation is discarded rather than unlocking
+the vault behind the lock.
 
-**Clipboard.** Copies are marked `org.nspasteboard.ConcealedType` so clipboard
-managers skip them, and auto-clear on a timer that checks `changeCount` first, so it
-only ever removes its own item.
+**Screen capture.** The popover and Settings windows set `sharingType = .none`, so
+revealed passwords and one-time codes stay out of screenshots, recordings and screen
+sharing; a revealed field hides itself again after 30 seconds.
+
+**Clipboard.** Copies are marked `org.nspasteboard.ConcealedType` and `…TransientType`
+so clipboard managers skip them, are written `.currentHostOnly` so Universal Clipboard
+does not carry them to your other devices, and auto-clear on a timer that checks
+`changeCount` first, so it only ever removes its own item.
 
 **Search.** Pre-folded UTF-8 byte haystacks built once at unlock; per-keystroke cost
 is a scan, with no debounce. Exact > prefix > substring > subsequence, weighted by
@@ -683,17 +705,22 @@ in force, rather than leaving you to infer it.
 Two levels, and Settings says which one applies:
 
 - **Enforced by the Keychain** — the data-protection keychain refuses to release the
-  key without Touch ID. Needs a build signed with an Apple Developer team.
+  key without Touch ID. Needs a build signed with an Apple Developer team *and* the
+  `com.apple.application-identifier` entitlement in the signature: embedding the
+  provisioning profile is not enough, so `build-app.sh` copies the identifiers out of the
+  profile and refuses to finish if they are missing. (Before the audit it did not, and
+  the "signed" build silently ran in the weaker mode below.)
 - **Enforced by Fleen** — an unsigned build cannot use that keychain at all
   (`errSecMissingEntitlement`), and the legacy keychain *accepts* a biometric policy and
   then ignores it. So the key is stored plainly and Fleen requires Touch ID itself
   before reading it. A real prompt, but enforced by the app rather than the system:
   someone running code as you could read the key without it.
 
-The weaker mode is used rather than refusing outright, because the alternative was Touch
-ID simply never working on a local build. It is never silent — Settings labels it, and
-`ProtectionLevel.isCryptographicallyBound` is false, so nothing in the code can mistake
-one for the other.
+The weaker mode exists **only in debug builds**, so Touch ID still works while
+developing. A release build without the data-protection keychain offers no Touch ID at
+all, and at launch it deletes any key an earlier build left in the legacy keychain —
+anyone who knows the macOS login password can read such a key out with
+`security find-generic-password`, and with the `.kdbx` it opens the vault.
 
 ## Unlock performance
 
